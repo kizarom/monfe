@@ -1,0 +1,40 @@
+<div class="row pt-5">
+    <div class="col-md-6 mx-auto">
+        <div class="card rounded-0">
+            <div class="card-header">
+               <h3 class="mb-0">Authentification</h3>
+            </div>
+            <div class="card-body">
+                <form  [formGroup]="loginForm" >
+                    <div class="form-group">
+                        <label for="">Email</label>
+                        <input type="email"  name="username" class="form-control rounded-0"  formControlName="username"  placeholder="Entrer email">
+                        <div *ngIf="username.touched && username.invalid">
+                            <small *ngIf="username.errors.required" class="text-danger">adresse e-mail est obligatoire<br></small>
+                            <small *ngIf="username.errors?.pattern" class="text-danger">adresse e-mail n'est pas valide</small>
+
+                        </div>
+                     </div>
+
+                   
+
+                    <div class="form-group">
+                        <label for="">Mot de Passe</label>
+                        <input type="password"   class="form-control rounded-0" name="password" formControlName="password"  placeholder="Password">
+                        <div *ngIf="password.touched && password.invalid">
+                            <small *ngIf="password.errors.required" class="text-danger">password est obligatoire<br></small>
+                            <small *ngIf="password.errors.pattern" class="text-danger">mot de passe n'est pas valide<br></small>
+                            <small *ngIf="password.errors.minlength" class="text-danger">le mot de passe doit contenir au moins 6 caractères</small>
+                        </div>
+            
+                    </div>
+                
+                  <button  (click)="loginUser()"  type="submit" [disabled]="loginForm.invalid" class="btn btn-success float-right">Connecter</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
