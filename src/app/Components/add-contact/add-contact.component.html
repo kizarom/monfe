@@ -1,0 +1,57 @@
+<div class="row mt-3">
+    <div class="col-md-10 mx-auto text-center">
+        <h1>ajouter un contact</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6 mx-auto mt-3">
+        <div class="bs-component">
+         <form #f="ngForm">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" required pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required id="email" [(ngModel)]="contact.email" name="email" #email="ngModel"  aria-describedby="emailHelp" placeholder="Enter votre email">
+                <div *ngIf="email.errors && (email.invalid || email.touched)">
+    	           <small class="alert alert-danger" *ngIf="email.errors.required">email is required</small>
+    	            <small class="alert alert-danger" *ngIf="email.errors.pattern">Please provide a valid email address</small>
+            	</div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">mot de passe</label>
+                <input type="password" minlength="6"  class="form-control" required id="password" [(ngModel)]="contact.password" name="password" #password="ngModel" placeholder=" entrer votre mot de passe">
+               <div *ngIf="password.invalid && password.touched">
+                <small class="alert alert-danger" *ngIf="password.errors.required">password is required</small>
+                <div class="alert alert-danger" *ngIf="password.errors.minlength">le mot de passe doit contenir au moins 6 caractères</div>
+               </div>
+            </div>
+            <div class="form-group">
+                <label for="first_name">Prénom</label>
+                <input type="text" class="form-control" required id="first_name" [(ngModel)]="contact.first_name" name="first_name" #first_name="ngModel"  placeholder="Enter votre prenom">
+                <div *ngIf="first_name.invalid && first_name.touched">
+                    <div class="alert alert-danger">Ce champs est vide</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="last_name">nom</label>
+                <input type="text" class="form-control" required id="last_name" [(ngModel)]="contact.last_name" name="last_name" #last_name="ngModel"  placeholder="Enter votre nom">
+                <div *ngIf="last_name.invalid && last_name.touched">
+                    <div class="alert alert-danglast_nameer">Ce champs est vide</div>
+                </div>
+            </div>
+            <div  *ngIf="isSuperadmin" class="form-group">
+                <label for="roles">rôle</label>
+                <select class="form-control" required id="roles" [(ngModel)]="contact.roles[0]" name="roles" #roles="ngModel"  placeholder="select roles">
+                  <option value="ROLE_ADMIN">administrateur</option>
+                  <option value="ROLE_USER">utilisateur</option>
+                </select>
+                <div *ngIf="roles.invalid && roles.touched">
+                    <div class="alert alert-danglast_nameer">Ce champs est vide</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-success btn-block" (click)="save(f)">ajouter</button>
+              </div>
+          </form>
+    </div>
+  </div>
+</div>

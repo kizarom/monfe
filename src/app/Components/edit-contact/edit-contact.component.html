@@ -1,0 +1,45 @@
+<div class="row mt-3">
+    <div class="col-md-10 mx-auto">
+        <h1>modifier Contact</h1>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-10 mx-auto">
+        <form [formGroup]="form" (ngSubmit)="edit()">
+            <div class="form-group">
+              <label for="email">email</label>
+              <input type="email" formControlName="email" class="form-control" name="email" id="email" placeholder="Enter votre email">
+              <div *ngIf="email.touched && email.invalid">
+                <small *ngIf="email.errors.required" class="alert alert-danger">adresse e-mail est obligatoire<br></small>
+                <small *ngIf="email.errors?.pattern" class="alert alert-danger">adresse e-mail n'est pas valide</small>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="password">mot de passe</label>
+              <input type="password" formControlName="password" class="form-control"  name="password" id="password" placeholder="Enter votre mot de passe">
+              <div *ngIf="password.touched && password.invalid">
+                <small *ngIf="password.errors.minlength" class="alert alert-danger">le mot de passe doit contenir au moins 6 caractères</small>
+              </div>
+            </div>
+            <div class="form-group">
+                <label for="first_name">prenom</label>
+                <input type="text" formControlName="first_name" class="form-control" name="first_name" id="first_name" placeholder="Enter votre prenom">
+            </div>
+              <div class="form-group">
+                <label for="last_name">nom</label>
+                <input type="text" formControlName="last_name" class="form-control" name="last_name" id="last_name" placeholder="Enter votre nom">
+              </div>
+              <div class="form-group" *ngIf="isSuperadmin">
+                <label for="roles">rôle</label>
+                <select class="form-control"  id="roles" formControlName="roles" name="roles" placeholder="select roles">
+                  <option value="ROLE_ADMIN">administrateur</option>
+                  <option value="ROLE_USER">utilisateur</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-danger btn-block"><i class="fa fa-plus-circle" aria-hidden="true"></i> modifier</button>
+              </div>
+
+          </form>
+    </div>
+  </div>
