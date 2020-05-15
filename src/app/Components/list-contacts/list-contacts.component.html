@@ -35,9 +35,9 @@
                 <td>{{role[contact.roles[0]]}}</td>
                 <td>{{contact.created_at | date: 'short'}}</td>
                 <td>
-                  <a class="btn btn-primary ml-1 btn-sm" style="padding: 5px 18px;"  [routerLink]="['/contacts/show',contact.id]"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                  <a class="btn btn-danger ml-1 btn-sm" style="padding: 5px 18px;"  [routerLink]="['/contacts/edit',contact.id]"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                  <a *ngIf="contact.roles[0] !=='ROLE_SUPER_ADMIN'" class="btn btn-warning ml-1 btn-sm" style="padding: 5px 18px;" (click)="delete(contact.id)"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                  <a class="btn btn-primary ml-1 btn-sm rounded" style="padding: 6px 16px ;"   [routerLink]="['/contacts/show',contact.id]"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                  <a class="btn btn-danger ml-1 btn-sm rounded" style="padding: 6px 16px ;"   [routerLink]="['/contacts/edit',contact.id]"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                  <a *ngIf="contact.roles[0] !=='ROLE_SUPER_ADMIN'" class="btn btn-warning ml-1 btn-sm rounded" style="padding: 6px 16px ;" (click)="delete(contact.id)"><i class="fa fa-trash" aria-hidden="true"></i></a>
                 </td>
               </tr>
             </tbody>
