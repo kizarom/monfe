@@ -10,24 +10,25 @@ export class ContactApiService {
 
   constructor(private httpClient:HttpClient) { }
 
- 
+
 
   getAllContact(){
-    return this.httpClient.get("http://localhost:8000/api/users");
+    return this.httpClient.get('http://localhost:8000/api/users');
   }
 
-  getOneContact(id:string){
-    return this.httpClient.get("http://localhost:8000/api/users/"+id);
+  getOneContact(id: string){
+    return this.httpClient.get('http://localhost:8000/api/users/' + id);
   }
 
-  addContact(contact:Contact){
-    return this.httpClient.post("http://localhost:8000/api/register",contact);
-  }
-  editContact(contact:Contact,id:string){
-    return this.httpClient.put(`http://localhost:8000/api/users/${id}`,contact)
+  addContact(userData: FormData){
+    return this.httpClient.post('http://localhost:8000/api/register', userData);
   }
 
-  deleteContact(id:string){
+  editContact(userData: FormData, id: string){
+    return this.httpClient.post(`http://localhost:8000/api/users/${id}`, userData, { params: { _method : 'PUT' }});
+  }
+
+  deleteContact(id: string) {
     return this.httpClient.delete(`http://localhost:8000/api/users/${id}`);
   }
 }

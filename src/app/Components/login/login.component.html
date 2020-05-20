@@ -16,7 +16,7 @@
                         </div>
                      </div>
 
-                   
+
 
                     <div class="form-group">
                         <label for="">Mot de Passe</label>
@@ -26,9 +26,9 @@
                             <small *ngIf="password.errors.pattern" class="text-danger">mot de passe n'est pas valide<br></small>
                             <small *ngIf="password.errors.minlength" class="text-danger">le mot de passe doit contenir au moins 6 caractères</small>
                         </div>
-            
+
                     </div>
-                
+
                   <button  (click)="loginUser()"  type="submit" [disabled]="loginForm.invalid" class="btn btn-success float-right">Connecter</button>
 
                 </form>

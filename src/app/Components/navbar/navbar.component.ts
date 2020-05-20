@@ -6,7 +6,7 @@ import { AuthApiService } from 'src/app/Services/auth-api.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.scss']
 })
 
 export class NavbarComponent implements OnInit, AfterViewChecked{
@@ -18,14 +18,14 @@ export class NavbarComponent implements OnInit, AfterViewChecked{
     this.isAdmin = this._authService.getConnectedAdmin();
     this.isAdmin = this._authService.getConnectedAdmin() || this._authService.isSuperAdmin();
   }
-  
-  
-  
+
+
+
   ngAfterViewChecked() {
       this.isAdmin = this._authService.getConnectedAdmin() || this._authService.isSuperAdmin();
-   
+
       // this.ngZone.runOutsideAngular(() => {
-      //   setTimeout(() => {        
+      //   setTimeout(() => {
        //     console.log("is admin", this.isAdmin);
        //   }, 0);
        // });
@@ -35,13 +35,13 @@ export class NavbarComponent implements OnInit, AfterViewChecked{
      this.isAdmin = false ;
      return this._authService.logoutUser();
    }
-   
+
 
    isConnected(){
     return this._authService.loggedIn();
    }
 
-  
+
 
 
 

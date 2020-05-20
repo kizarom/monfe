@@ -1,3 +1,14 @@
+<ng-template #add let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">New Contact</h5>
+    <button type="button" class="close" (click)="modal.dismiss()" aria-label="close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-add-contact></app-add-contact>
+  </div>
+</ng-template>
 
 <div class="row mt-3">
     <div class="col-md-12 mx-auto">
@@ -7,7 +18,7 @@
   <div class="row">
     <div class="col-lg-7">
         <p class="bs-component">
-          <button type="button" class="btn btn-info" routerLink="/contacts/add">ajouter contact</button>
+          <button type="button" class="btn btn-info" (click)="create()"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter un contact</button>
         </p>
     </div>
   </div>
@@ -19,6 +30,7 @@
         <table class="table table-hover">
           <thead>
             <tr>
+              <th scope="col">Photo</th>
               <th scope="col">Email</th>
               <th scope="col">prenom</th>
               <th scope="col">nom</th>
@@ -29,20 +41,20 @@
           </thead>
             <tbody>
               <tr *ngFor="let contact of contacts">
-                <td>{{contact.email}}</td>
-                <td>{{contact.first_name}}</td>
-                <td>{{contact.last_name}}</td>
-                <td>{{role[contact.roles[0]]}}</td>
-                <td>{{contact.created_at | date: 'short'}}</td>
-                <td>
-                  <a class="btn btn-primary ml-1 btn-sm rounded" style="padding: 6px 16px ;"   [routerLink]="['/contacts/show',contact.id]"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                  <a class="btn btn-danger ml-1 btn-sm rounded" style="padding: 6px 16px ;"   [routerLink]="['/contacts/edit',contact.id]"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                  <a *ngIf="contact.roles[0] !=='ROLE_SUPER_ADMIN'" class="btn btn-warning ml-1 btn-sm rounded" style="padding: 6px 16px ;" (click)="delete(contact.id)"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                <td class="align-middle p-1 text-center"><img src="{{contact.avatar_path}}" class="img-thumbnail cell-avatar" alt="photo de {{contact.last_name}}"></td>
+                <td class="align-middle p-1">{{contact.email}}</td>
+                <td class="align-middle p-1">{{contact.first_name}}</td>
+                <td class="align-middle p-1">{{contact.last_name}}</td>
+                <td class="align-middle p-1">{{role[contact.roles[0]]}}</td>
+                <td class="align-middle p-1">{{contact.created_at | date: 'dd/MM/yyyy'}}</td>
+                <td class="align-middle p-1">
+                  <a class="btn btn-primary text-light ml-1 btn-sm rounded btn-action" (click)="show(contact.id)"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                  <a class="btn btn-warning text-dark ml-1 btn-sm rounded btn-action" (click)="edit(contact)"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                  <a *ngIf="contact.roles[0] !=='ROLE_SUPER_ADMIN'" class="btn btn-danger ml-1 btn-sm rounded btn-action" (click)="delete(contact.id)"><i class="fa fa-trash" aria-hidden="true"></i></a>
                 </td>
               </tr>
             </tbody>
           </table>
-
           </div>
     </div>
   </div>

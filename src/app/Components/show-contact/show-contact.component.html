@@ -1,20 +1,26 @@
-<div class="row mt-3">
-    <div class="col-lg-7">
-        <p class="bs-component">
-        <a routerLink="/contacts"><button type="button" class="btn btn-outline-secondary"> Retour à la page d'accueil</button></a>
-        </p>
+<div class="modal-header">
+  <h4 class="modal-title">{{contact.first_name}} {{contact.last_name}}</h4>
+  <button class="close" type="button" aria-label="close" (click)="activeModal.dismiss('cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
 </div>
-</div>
-<div class="row">
-    <div class="col-lg-4">
-        <div class="bs-component">
-           <div class="card bg-secondary mb-3" style="max-width: 20rem;">
-              <div class="card-header">{{contact.first_name}} {{contact.last_name}}</div>
-              <div class="card-body">
-                 <p class="card-text"> email: {{contact.email}}</p>
-                 <p class="card-text"> rôle:{{role[contact.roles[0]]}}</p>
-              </div>
-            </div>
-        </div>
+<div class="modal-body">
+  <div class="card">
+    <div class="card-body row">
+      <div class="col-5">
+        <img src="{{contact.avatar_path}}" alt="rewre" class="img-thumbnail avatar">
+     </div>
+     <div class="col-7">
+        <p class="card-text font-weight-bold">Prenom : {{contact.first_name}}</p>
+        <p class="card-text font-weight-bold">Nom : {{contact.last_name}}</p>
+        <p class="card-text"> <span class="font-weight-bold">email :</span> {{contact.email}}</p>
+        <p class="card-text"> <span class="font-weight-bold">rôle : </span>{{role[contact.roles[0]]}}</p>
+        <a *ngIf="contact.roles[0] !=='ROLE_SUPER_ADMIN'" class="btn btn-danger ml-1 btn-sm rounded btn-action" (click)="delete(contact.id)"><i class="fa fa-trash" aria-hidden="true"></i> Supprimer</a>
+     </div>
     </div>
+  </div>
 </div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+</div>
+
