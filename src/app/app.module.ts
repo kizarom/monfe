@@ -15,7 +15,7 @@ import { AddContactComponent } from './Components/add-contact/add-contact.compon
 import { EditContactComponent } from './Components/edit-contact/edit-contact.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { TokenInterceptorService } from './Services/token-interceptor.service';
-import { from } from 'rxjs';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -31,20 +31,20 @@ import { from } from 'rxjs';
   ],
   imports: [
     BrowserModule,
+    NgbModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-
   ],
   providers: [AuthApiService, AuthGuard,
-  
+
   {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,
     multi: true
   }],
-  
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -14,7 +14,7 @@ import { HttpResponse } from '@angular/common/http';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  
+
   passwordError: String
   loginForm: FormGroup
   loginUserData = {
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   constructor(private _auth: AuthApiService,
               private _router: Router,
               private fb: FormBuilder) {
-              
+
                 let formControls = {
                   username: new FormControl('',[
                     Validators.required,
@@ -48,20 +48,22 @@ export class LoginComponent implements OnInit {
      username: this.loginUserData.username,
      password: this.loginUserData.password,
     });
- 
+
   }
 
 
 
   loginUser (){
+      console.log(this.loginForm.value);
 
       this._auth.loginUser(this.loginForm.value)
       .subscribe((res: HttpResponse<any>) => {
+        console.log(res);
         if (res.status === 200) {
           // we have logged in successfully
           localStorage.getItem('token')
           localStorage.getItem('refresh_token')
-          
+
           var decodedToken = jwt_decode(res.body.token);
               if(decodedToken['roles'].includes('ROLE_ADMIN')){
                 this._router.navigate(['contacts'])
@@ -71,9 +73,8 @@ export class LoginComponent implements OnInit {
 
 
         }
-        console.log(res);
       });
-  } 
+  }
 
 
 

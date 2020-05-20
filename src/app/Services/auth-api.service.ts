@@ -10,13 +10,9 @@ import { shareReplay, tap } from 'rxjs/operators';
 })
 export class AuthApiService {
 
-  private _loginUrl = "http://localhost:8000/api/login_check";
-
+  private _loginUrl = 'http://localhost:8000/api/login_check';
 
   constructor(private http: HttpClient,private _router: Router) {}
-
-
-
 
     loginUser(user) {
       return this.http.post<any>(this._loginUrl, user, {observe: 'response'}).pipe(
@@ -24,7 +20,7 @@ export class AuthApiService {
         tap((res: HttpResponse<any>) => {
           // the auth tokens will be in the body of this response
           this.storeTokens(res.body.token, res.body.refresh_token);
-          console.log("LOGGED IN!");
+          console.log('LOGGED IN!');
         })
       )
     }
@@ -33,40 +29,41 @@ export class AuthApiService {
       localStorage.setItem('token', accessToken);
       localStorage.setItem('refresh_token', refreshToken);
     }
-     
+
     private removeTokens() {
       localStorage.removeItem('token');
       localStorage.removeItem('refresh_token');
     }
-  
-    logoutUser(){
-          this.removeTokens();      
+
+    logoutUser() {
+          this.removeTokens();
           this._router.navigate(['/login']);
     }
 
     loggedIn() {
       let token = localStorage.getItem('token');
-      if(token){
+      if (token) {
         return true;
-      }else{
+      } else {
         return false;
       }
     }
 
     setToken(accessToken: string) {
-      localStorage.setItem('token', accessToken)
+      localStorage.setItem('token', accessToken);
     }
 
-    getToken(): string{
+    getToken(): string {
        return localStorage.getItem('token');
     }
 
     getRefreshToken() {
       return localStorage.getItem('refresh_token');
     }
-  //return new token
+
+    // return new token
     getNewToken() {
-      return this.http.post<any>("http://localhost:8000/api/token/refresh",
+      return this.http.post<any>('http://localhost:8000/api/token/refresh',
         {
           'refresh_token': this.getRefreshToken()
         },
@@ -83,9 +80,9 @@ export class AuthApiService {
     }
 
 
-     //roles is undefined  result=false
-    //roles  contains "ROLE_ADMIN  result = true
-   //roles  does not contain "ROLE_ADMIN" result =false
+     // roles is undefined  result=false
+    // roles  contains "ROLE_ADMIN  result = true
+   // roles  does not contain "ROLE_ADMIN" result =false
     getConnectedAdmin(){
       if(this.loggedIn()){
         const roles = this.getUserConnectedRoles();
@@ -100,9 +97,9 @@ export class AuthApiService {
         return roles.includes('ROLE_SUPER_ADMIN');
       }
       return false;
-      
+
     }
-     
-    
+
+
 }
 
