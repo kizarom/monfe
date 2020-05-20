@@ -15,7 +15,7 @@ import { HttpResponse } from '@angular/common/http';
 })
 export class LoginComponent implements OnInit {
 
-  passwordError: String
+  showErrorMessage : boolean ;
   loginForm: FormGroup
   loginUserData = {
     username: "",
@@ -53,27 +53,32 @@ export class LoginComponent implements OnInit {
 
 
 
-  loginUser (){
-      console.log(this.loginForm.value);
-
+  loginUser (){ 
+  
+    this.showErrorMessage = false;
       this._auth.loginUser(this.loginForm.value)
-      .subscribe((res: HttpResponse<any>) => {
-        console.log(res);
-        if (res.status === 200) {
-          // we have logged in successfully
-          localStorage.getItem('token')
-          localStorage.getItem('refresh_token')
-
-          var decodedToken = jwt_decode(res.body.token);
-              if(decodedToken['roles'].includes('ROLE_ADMIN')){
-                this._router.navigate(['contacts'])
-              }else{
-                this._router.navigate(['projets']);
+      .subscribe((res) => {
+              if(res){
+                if (res.status === 200) {
+                  // we have logged in successfully
+                  localStorage.getItem('token')
+                  localStorage.getItem('refresh_token')
+                  
+                  var decodedToken = jwt_decode(res.body.token);
+                      if(decodedToken['roles'].includes('ROLE_ADMIN')){
+                        this._router.navigate(['contacts'])
+                      }else{
+                        this._router.navigate(['projets']);
+                      }
+                }
+                   console.log(res);
               }
+         },
+         (error) => {
+           console.log(error);
+          this.showErrorMessage = true;
+          });
 
-
-        }
-      });
   }
 
 

@@ -24,24 +24,24 @@ export class TokenInterceptorService implements HttpInterceptor {
      // call next() and handle the response
        return next.handle(request).pipe(
        catchError((error: HttpErrorResponse) => {
-         console.log(error);
+         
 
-         if (error.status === 401) {
-
+        if(this.authService.getRefreshToken()){
+          if (error.status === 401) {
             // refresh the access token
-          return this.refreshAccessToken()
-          .pipe(
-            switchMap(() => {
-              request = this.addAuthHeader(request);
-              return next.handle(request);
-            }),
-            catchError((err: any) => {
-              console.log(err);
-              this.authService.logoutUser();
-              return empty();
-            })
-          );
-      }
+            return this.refreshAccessToken()
+            .pipe(
+              switchMap(() => {
+                request = this.addAuthHeader(request);
+                return next.handle(request);
+              }),
+              catchError((err: any) => {
+                this.authService.logoutUser();
+                return empty();
+              })
+            )
+        }}
+  
          return throwError(error);
     })
   );

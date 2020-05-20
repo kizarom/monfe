@@ -26,7 +26,7 @@
                             <small *ngIf="password.errors.pattern" class="text-danger">mot de passe n'est pas valide<br></small>
                             <small *ngIf="password.errors.minlength" class="text-danger">le mot de passe doit contenir au moins 6 caractères</small>
                         </div>
-
+                        <small *ngIf="showErrorMessage"  class="text-danger">Accès refusé, veuillez vérifier l'email et le mot de passe saisis</small>
                     </div>
 
                   <button  (click)="loginUser()"  type="submit" [disabled]="loginForm.invalid" class="btn btn-success float-right">Connecter</button>
