@@ -47,6 +47,7 @@ export class ListContactsComponent implements OnInit, AfterViewInit {
     this.contactservice.getAllContact().subscribe((contactList: Contact[]) => {
       this.contacts = contactList['hydra:member'];
       this.contactTable = this.dataTableConfig.getDatatableConfiguration();
+      this.spinner.hide();
     });
   }
 
@@ -67,6 +68,8 @@ export class ListContactsComponent implements OnInit, AfterViewInit {
             'votre contact est supprimé avec succès',
             'success'
           );
+          this.spinner.show();
+          this.contacts = null;
           this.getListContacts();
         });
       }
@@ -81,6 +84,8 @@ export class ListContactsComponent implements OnInit, AfterViewInit {
     modalRef.result.then(
       (yes) => {
         modalRef.close();
+        this.spinner.show();
+        this.contacts = null;
         this.getListContacts();
       },
       (cancel) => {
@@ -108,6 +113,8 @@ export class ListContactsComponent implements OnInit, AfterViewInit {
     modalRef.componentInstance.id = id;
     modalRef.result.then((yes) => {
       modalRef.close();
+      this.spinner.show();
+      this.contacts = null;
       this.getListContacts();
     }, (error) => {
       console.log(error);

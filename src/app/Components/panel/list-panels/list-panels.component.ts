@@ -42,6 +42,7 @@ export class ListPanelsComponent implements OnInit, AfterViewInit {
     this.panelservice.getAllPanel().subscribe((PanelList: Panel[]) => {
       this.panels = PanelList;
       this.panelTable = this.dataTableConfiguration.getDatatableConfiguration();
+      this.spinner.hide();
     });
   }
   delete(id) {
@@ -61,6 +62,8 @@ export class ListPanelsComponent implements OnInit, AfterViewInit {
             'votre panneau est supprimé avec succès',
             'success'
           );
+          this.spinner.show();
+          this.panels = null;
           this.getListPanels();
         });
       }
@@ -75,6 +78,8 @@ export class ListPanelsComponent implements OnInit, AfterViewInit {
     modalRef.result.then(
       (yes) => {
         modalRef.close();
+        this.spinner.show();
+        this.panels = null;
         this.getListPanels();
       },
       (cancel) => {
@@ -100,6 +105,12 @@ export class ListPanelsComponent implements OnInit, AfterViewInit {
       backdrop: 'static'
     });
     modalRef.componentInstance.id = id;
+    modalRef.result.then((yes) => {
+      modalRef.close();
+      this.spinner.show();
+      this.panels = null;
+      this.getListPanels();
+    });
   }
 
 

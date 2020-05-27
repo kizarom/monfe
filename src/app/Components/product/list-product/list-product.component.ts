@@ -52,6 +52,8 @@ export class ListProductComponent implements OnInit, AfterViewInit {
     });
     modalRef.result.then((yes) => {
       modalRef.close();
+      this.spinner.show();
+      this.products = null;
       this.getProductsList();
     }, (cancel) => {
       modalRef.close();
@@ -67,6 +69,8 @@ export class ListProductComponent implements OnInit, AfterViewInit {
     modalRef.componentInstance.id = id;
     modalRef.result.then((yes) => {
       modalRef.close();
+      this.spinner.show();
+      this.products = null;
       this.getProductsList();
     });
   }
@@ -103,6 +107,8 @@ export class ListProductComponent implements OnInit, AfterViewInit {
             'votre produit est supprimé avec succès',
             'success'
           );
+          this.spinner.show();
+          this.products = null;
           this.getProductsList();
         });
       }
@@ -114,6 +120,7 @@ export class ListProductComponent implements OnInit, AfterViewInit {
       this.products = product;
       console.log(product);
       this.productTable = this.dataTableConfiguration.getDatatableConfiguration();
+      this.spinner.hide();
     }, (error) => {
       console.log(error);
     });

@@ -40,6 +40,7 @@ export class ListCompenentComponent implements OnInit, AfterViewInit{
     this.componentService.getAllComponent().subscribe((componentsList: ComponentInterface[]) => {
       this.components = componentsList;
       this.componentTable = this.dataTableConfiguration.getDatatableConfiguration();
+      this.spinner.hide();
     });
   }
 
@@ -60,6 +61,8 @@ export class ListCompenentComponent implements OnInit, AfterViewInit{
             'le composant a été supprimé avec succès',
             'success'
           );
+          this.spinner.show();
+          this.components = null;
           this.getListComponent();
         });
       }
@@ -74,6 +77,8 @@ export class ListCompenentComponent implements OnInit, AfterViewInit{
     modalRef.result.then(
       (yes) => {
         modalRef.close();
+        this.spinner.show();
+        this.components = null;
         this.getListComponent();
       },
       (cancel) => {
@@ -101,6 +106,8 @@ export class ListCompenentComponent implements OnInit, AfterViewInit{
     modalRef.componentInstance.id = id;
     modalRef.result.then((yes) => {
       modalRef.close();
+      this.spinner.show();
+      this.components = null;
       this.getListComponent();
     }, (error) => {
       console.log(error);

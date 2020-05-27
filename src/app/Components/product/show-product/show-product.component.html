@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title">{{product.name}}</h4>
+  <h4 class="modal-title" *ngIf="product" >{{product.name}}</h4>
   <button class="close" type="button" aria-label="close" (click)="activeModal.dismiss('cross click')">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -8,12 +8,14 @@
   <div class="card">
     <div class="card-body row">
       <div class="col-5">
-        <img src="{{product.product_image}}" alt="rewre" class="img-thumbnail avatar">
+        <img *ngIf="product" src="{{product.product_image}}" alt="rewre" class="img-thumbnail avatar">
       </div>
-      <div class="col-7">
+      <div class="col-7" *ngIf="product">
         <p class="card-text font-weight-bold">Name : {{product.name}}</p>
-        <p class="card-text font-weight-bold">Description : {{product.description}}</p>
+        <p class="card-text font-weight-bold">Puissance électrique : {{product.electric_power}}</p>
+        <p class="card-text font-weight-bold">Installation électrique : {{product.electrical_installation}}</p>
         <p class="card-text"><span class="font-weight-bold">Price : </span>{{product.price | number: '0.2' }} DH</p>
+        <p class="card-text font-weight-bold">Description : {{product.description}}</p>
         <a class="btn btn-danger ml-1 btn-sm rounded btn-action text-light" (click)="delete(product.id)">
           <i class="fa fa-trash" aria-hidden="true"></i> Supprimer
         </a>
@@ -22,7 +24,7 @@
   </div>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">
-    Close
+  <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('cross click')">
+    Fermer
   </button>
 </div>

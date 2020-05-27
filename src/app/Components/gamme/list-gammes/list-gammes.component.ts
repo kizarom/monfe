@@ -44,7 +44,7 @@ export class ListGammesComponent implements OnInit, AfterViewInit {
     this.gammeService.getAllGamme().subscribe((gammeList: Gamme[]) => {
       this.gammes = gammeList;
       this.gammeTable = this.dataTableConfiguration.getDatatableConfiguration();
-
+      this.spinner.hide();
     });
   }
 
@@ -65,6 +65,8 @@ export class ListGammesComponent implements OnInit, AfterViewInit {
             'votre gamme est supprimé avec succès',
             'success'
           );
+          this.spinner.show();
+          this.gammes = null;
           this.getListGammes();
         });
       }
@@ -79,6 +81,8 @@ export class ListGammesComponent implements OnInit, AfterViewInit {
     modalRef.result.then(
       (yes) => {
         modalRef.close();
+        this.spinner.show();
+        this.gammes = null;
         this.getListGammes();
       },
       (cancel) => {
@@ -104,6 +108,14 @@ export class ListGammesComponent implements OnInit, AfterViewInit {
       backdrop: 'static'
     });
     modalRef.componentInstance.id = id;
+    modalRef.result.then(
+      (yes) => {
+        modalRef.close();
+        this.spinner.show();
+        this.gammes = null;
+        this.getListGammes();
+      }
+    );
   }
 
 }

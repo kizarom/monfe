@@ -20,6 +20,7 @@ export class ShowProductComponent implements OnInit {
   ngOnInit(): void {
     this.productApiService.getProductById(this.id).subscribe((product: Product) => {
       this.product = product;
+      console.log('wahya', this.product);
     });
   }
 
