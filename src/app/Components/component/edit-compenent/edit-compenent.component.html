@@ -1,0 +1,130 @@
+<div class="modal-header">
+    <h4 class="modal-title">Modifier le composant</h4>
+    <button type="button" class="close" aria-label="close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="card" style="border: none;">
+      
+      <form [formGroup]="form" (ngSubmit)="edit()">
+        <div class="form-group">
+          <label for="man_ref">Réf fabricant</label>
+          <input type="text" class="form-control" id="man_ref" formControlName="man_ref" name="man_ref" placeholder="Réf fabricant">
+          <div *ngIf="man_ref.invalid && man_ref.touched">
+            <small class="alert alert-danger" *ngIf="man_ref.errors.required">Réf fabricant est obligatoire</small>
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="rexel_ref">Réf rexel</label>
+          <input type="text" class="form-control"  id="rexel_ref" formControlName="rexel_ref" name="rexel_ref" placeholder="Réf rexel">
+          <div *ngIf="rexel_ref.invalid && rexel_ref.touched">
+             <small class="alert alert-danger" *ngIf="rexel_ref.errors.required">Le mot de passe est obligatoire</small>
+            </div>
+        </div>
+        <div class="form-group">
+          <label for="title">Intitulé</label>
+          <input type="text" class="form-control"  id="title" formControlName="title" name="title"  placeholder="Intitulé">
+          <div *ngIf="title.invalid && title.touched">
+            <small class="alert alert-danger" *ngIf="title.errors.required">Ce champs est vide</small>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="quantity">Quantité</label>
+          <input type="text" class="form-control" pattern="^[1-9]*$"  id="quantity" formControlName="quantity" name="quantity"  placeholder="Quantité">
+          <div *ngIf="quantity.invalid && quantity.touched">
+            <small class="alert alert-danger" *ngIf="quantity.errors.required">Ce champs est vide</small>
+            <small class="alert alert-danger" *ngIf="quantity.errors.pattern">La quantité doit être numérique, et plus que 1 !</small>
+          </div>
+        </div>
+        <div class="form-group">
+            <label for="price">Prix</label>
+            <input type="text" class="form-control" pattern="^([0-9]{1,10})(.[0-9]{1,2})?$"  id="price" formControlName="price" name="price"  placeholder="Prix">
+            <div *ngIf="price.invalid && price.touched">
+              <small class="alert alert-danger" *ngIf="price.errors.required">Ce champs est vide</small>
+              <small class="alert alert-danger" *ngIf="price.errors.pattern">Le prix doit être numérique de format 10N.2N</small>
+            </div>
+          </div>
+        <div class="form-group">
+          <label for="type">Type</label>
+          <select class="form-control custom-select"  id="type" formControlName="type" name="type">
+            <option value="Récepteur solaire">Récepteur solaire</option>
+            <option value="Intégration">Intégration</option>
+            <option value="Quincaillerie">Quincaillerie</option>
+            <option value="Aérolique">Aérolique</option>
+            <option value="Hydraulique">Hydraulique</option>
+            <option value="Électrique">Électrique</option>
+          </select>
+          <div *ngIf="type.invalid && type.touched">
+            <small class="alert alert-danger">Ce champs est vide</small>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea class="form-control" id="description" formControlName="description" name="description"  placeholder="Description"></textarea>
+          <div *ngIf="description.invalid && description.touched">
+            <small class="alert alert-danger" *ngIf="description.errors.required">Ce champs est vide</small>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="file-area border border-secondary" >
+            <label>Les fichiers associés</label>
+              <h6 *ngIf="pdfsExist.length == 0" class="text-center w-100">Ce composant n'a aucun fichier associé.</h6>
+              <div *ngFor="let pdfExist of pdfsExist text-primary" class="file-name border-bottom border-Secondary">
+                 <a href="{{pdfExist.path}}">{{pdfExist.title}}</a>
+                  <span (click)="deleteExistFile(pdfExist)">&times;</span>
+              </div>
+          </div>
+      </div>
+        <div class="card border-Secondary mb-3">
+          <div class="card-header">Image & Fichier associés</div>
+          <div class="card-body">
+            <div *ngIf="errMessage.length != 0" class="alert alert-dismissible alert-danger avatar-alert">
+              <button type="button" class="close" (click)="dismissAlert()">&times;</button>
+              <span class="p-0 m-o d-block" *ngFor="let errMsg of errMessage">{{errMsg}}</span>
+            </div>
+            
+             <div class="row avatar-form">    
+                <h5 class="w-100">Image</h5>
+                <div class="avatar col-12 col-sm-5">
+                    <img onError="this.src = 'assets/image-default.png'" [src]="imagePreview" alt="user avatar" class="img-thumbnail" >
+                </div>
+                <div class="form-group p-0 btn-file-area col-12 col-sm-7">
+                    <div class="input-group mt-3 mb-3 mr-2 input-file d-block">
+                        <div class="custom-file align-middle mb-3">
+                            <input type="file" class="custom-file-input" id="inputGroupFile02" (change)="getImage($event.target.files[0])" accept=".jpeg,.jpg,.png">
+                            <label class="custom-file-label" for="inputGroupFile02">Choisir une photo</label>
+                        </div>
+                        <button type="button" (click)="setImageDefault()" class="btn btn-outline-secondary text-dark d-block p-2"><i class="fa fa-times-circle-o" aria-hidden="true"></i> Supprimer</button>
+                    </div>
+                </div>
+                <div class="form-group  col-12 col-sm-12  col-lg-12">
+                    <div class="input-group mt-3 mb-3 mr-2 input-file d-block">
+                        <h5>Fichiers</h5>
+                        <div class="custom-file align-middle mb-3">
+                            <input type="file" class="custom-file-input" id="inputGroupFile02" (change)="getFiles($event.target.files)" accept=".pdf" multiple>
+                            <label class="custom-file-label" for="inputGroupFile02">Choisir un/des fichiers</label>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="file-area border border-secondary" *ngIf="pdfs.length != 0">
+                            <div *ngFor="let pdf of pdfs" class="file-name border-bottom border-Secondary">
+                                {{pdf.name}}
+                                <span (click)="deleteFile(pdf)">&times;</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-outline-danger">Modifier</button>
+          <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  

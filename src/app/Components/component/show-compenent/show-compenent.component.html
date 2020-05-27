@@ -1,0 +1,46 @@
+  <div class="modal-header" *ngIf="component">
+    <h4 class="modal-title font-weight-bold">Réf Fab : {{component.man_ref}} <br> Réf Rexel : {{component.rexel_ref}}</h4>
+    <button class="close" type="button" aria-label="close" (click)="activeModal.dismiss('cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" *ngIf="component">
+    <div class="card">
+      <div class="card-body row">
+        <div class="col-5">
+          <img onError="this.src = 'assets/image-default.png'" src="{{component.image}}" alt="{{component.title}}" class="img-thumbnail avatar">
+       </div>
+       <div class="col-7">
+         <table class="w-100 mb-2">
+           <tr>
+             <td class="card-text font-weight-bold">Intitulé : {{component.title}}</td>
+             <td class="card-text"><span class="font-weight-bold">Type :</span> {{component.type}}</td>
+           </tr>
+            <tr>
+             <td class="card-text"><span class="font-weight-bold">Quantity : </span>{{component.quantity}}</td>
+             <td class="card-text"> <span class="font-weight-bold">Prix : </span>{{component.price}}</td>
+           </tr>
+         </table>
+          <p class="card-text"> <span class="font-weight-bold d-block">Description : </span>
+            {{component.description}}
+          </p>
+          
+          <a class="btn btn-danger ml-1 btn-sm rounded btn-action" (click)="delete(component.id)"><i class="fa fa-trash" aria-hidden="true"></i> Supprimer</a>
+       </div>
+      </div>
+      <div>
+        <div class="file-area border border-secondary" *ngIf="component" >
+          <label>Les fichiers associés</label>
+            <h6 *ngIf="component.files.length == 0" class="text-center w-100">Ce composant n'a aucun fichier associé.</h6>
+            <div *ngFor="let pdfExist of component.files text-primary" class="file-name border-bottom border-Secondary">
+                {{pdfExist.title}}
+               <span><a href="{{pdfExist.path}}"><i class="fa fa-download" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
+  </div>
+  
+  

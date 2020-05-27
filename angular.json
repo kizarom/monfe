@@ -28,12 +28,15 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css",
               "node_modules/font-awesome/css/font-awesome.css",
               "node_modules/bootswatch/dist/lux/bootstrap.min.css",
               "src/styles.scss"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/datatables.net/js/jquery.dataTables.js",
+              "node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js",
               "node_modules/popper.js/dist/umd/popper.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js"
             ]

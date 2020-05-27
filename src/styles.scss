@@ -5,6 +5,10 @@
     animation-duration: 0.4s;
 }
   
+.modal-dialog {
+    max-width: 95% !important;
+}
+
 @keyframes ngbModel {
     0%   {transform: scale(0.5)}
     75%  {transform: scale(1.1)}
@@ -13,7 +17,7 @@
 
 .avatar-form {
     margin: auto;
-    .col-8 {
+    .btn-file-area  {
         display: flex;
         .input-file {
             justify-content: center;
@@ -32,3 +36,50 @@
     }
 }
 
+.table thead th {
+    padding: 20px !important;
+    text-align: center;
+}
+
+.btn-action {
+    padding: 6px 16px ;
+}
+.cell-avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 30px;
+
+}
+
+.table-container {
+    overflow-x: auto;
+ }
+
+@media screen and (min-width: 767px){
+    .modal-dialog {
+        max-width: 75% !important;
+    }
+    .table-container {
+       overflow-x: auto;
+    }
+} 
+
+@media screen and (min-width: 991px) {
+    .modal-dialog {
+        max-width: 60% !important;
+    }
+
+    .table-container {
+        overflow-x: unset;
+     }
+}
+
+@media screen and (min-width: 1048px) {
+    .modal-dialog {
+        max-width: 50% !important;
+    }
+
+    .table-container {
+        overflow-x: unset;
+     }
+}
