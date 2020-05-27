@@ -1,0 +1,25 @@
+<div class="modal-header">
+    <h4 class="modal-title">Modifier le Gamme</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="edit()">
+    <div class="modal-body">
+      
+      <div class="form-group">
+        <label for="title">Titre de gamme :</label>
+        <input type="text" [value]="gamme.title" formControlName="title" class="form-control" name="title" id="title" placeholder="Entrez votre title de Gamme">
+        <div *ngIf="title.touched && title.invalid">
+          <small *ngIf="title.errors.required" class="alert alert-danger">Le titre est obligatoire<br></small>
+        </div>
+      </div>
+     
+     
+     
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-outline-danger"><i class="fa fa-plus-circle" aria-hidden="true"></i> Modifier</button>
+      </div>
+    </div>
+  </form>
+  

@@ -1,0 +1,68 @@
+<ng-template #add let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title">components</h5>
+      <button type="button" class="close" (click)="modal.dismiss()" aria-label="close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <app-add-contact></app-add-contact>
+    </div>
+  </ng-template>
+  
+  <div class="row mt-3">
+      <div class="col-md-12 mx-auto">
+          <h1 class="text-center">List des composants</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-7">
+          <p class="bs-component">
+            <button type="button" class="btn btn-info" (click)="create()"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter composant</button>
+          </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+       <div class="bs-component table-container">
+          <table *ngIf="components"  class="table table-hover table-striped" datatable [dtOptions]="componentTable">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Image</th>
+                <th scope="col">Réf Fab</th>
+                <th scope="col">Intitulé</th>
+                <th scope="col">Type</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+              <tbody>
+                <tr *ngFor="let component of components">
+                  <td class="align-middle p-1 text-center"><img onError="this.src = 'assets/image-default.png'" src="{{component.image}}" class="img-thumbnail cell-avatar" alt="photo de {{component.title}}"></td>
+                  <td class="align-middle p-1 text-center">{{component.man_ref}}</td>
+                  <td class="align-middle p-1 text-center">{{component.title}}</td>
+                  <td class="align-middle p-1 text-center">{{component.type}}</td>
+                  <td class="align-middle p-1 text-center">{{component.quantity}}</td>
+                  <td class="align-middle p-1 text-center">{{component.price}}</td>
+                  <td class="align-middle p-1 text-center">
+                    <a class="btn btn-primary text-light ml-1 btn-sm rounded btn-action" (click)="show(component.id)"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                    <a class="btn btn-warning text-dark ml-1 btn-sm rounded btn-action" (click)="edit(component)"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                    <a class="btn btn-danger ml-1 btn-sm rounded btn-action" (click)="delete(component.id)"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-7">
+          <p class="bs-component">
+            <button type="button" class="btn btn-info" (click)="create()"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter composant</button>
+          </p>
+      </div>
+    </div>
+    <ngx-spinner bdColor="rgba(110, 129, 136, 0.91)" color="rgb(28, 36, 79)" size="large" type="ball-clip-rotate-multiple">  
+      <p style="color: rgb(28, 36, 79)">Chargement de page ... </p>  
+    </ngx-spinner> 

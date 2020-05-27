@@ -1,0 +1,113 @@
+<div class="modal-header">
+  <h4 class="modal-title">Modifier un contact</h4>
+  <button type="button" class="close" aria-label="close" (click)="activeModal.dismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label class="form-control-plaintext">Nom du produit :</label>
+      <input type="text" class="form-control" placeholder="Name" formControlName="name"/>
+      <div class="error">{{ error }}</div>
+    </div>
+    <div class="form-group">
+      <label class="form-control-plaintext">Description :</label>
+      <textarea class="form-control" rows="3" placeholder="Description" formControlName="description"></textarea>
+      <div class="error">{{ error }}</div>
+    </div>
+    <div class="form-group">
+      <label class="form-control-plaintext">Prix :</label>
+      <input type="text" class="form-control" placeholder="Price" formControlName="price"/>
+      <div class="error">{{ error }}</div>
+    </div>
+    <div class="form-group">
+      <label class="form-control-plaintext">Puissance électrique désirée :</label>
+      <input type="text" class="form-control" placeholder="Electric Power" formControlName="electric_power"/>
+      <div class="error">{{ error }}</div>
+    </div>
+    <div class="form-group">
+      <label class="form-control-plaintext">Installation électrique du bâtiment :</label>
+      <select class="form-control" formControlName="electrical_installation">
+        <option value="monophasé">Monophasé</option>
+        <option value="triphasé">Triphasé</option>
+      </select>
+      <div class="error">{{ error }}</div>
+    </div>
+    <div class="form-group">
+      <div class="form-control">
+        <label class="form-check-label form-check-inline">Ensemble électrique</label>
+        <input type="checkbox" class="form-check form-check-inline" formControlName="electrical_assembly" value="false"/>
+      </div>
+      <div class="error">{{ error }}</div>
+    </div>
+    <div class="form-group" *ngIf="electrical_assembly.value == true">
+      <div class="form-group">
+        <label class="form-control-plaintext">Type :</label>
+        <select class="form-control" formControlName="electrical_assembly_type">
+          <option value="Ondulateur">Ondulateur</option>
+          <option value="Micro-ondulateur">Micro-ondulateur</option>
+        </select>
+        <div class="error">{{ error }}</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="form-control">
+        <label class="form-check-label form-check-inline">Production de chauffage :</label>
+        <input type="checkbox" class="form-check form-check-inline" formControlName="heat_production" value="false"/>
+      </div>
+      <div class="error">{{ error }}</div>
+    </div>
+    <div class="form-group" *ngIf="heat_production.value == true">
+      <div class="form-group">
+        <label class="form-control-plaintext">Nombre de bouches d'insufflation :</label>
+        <input type="number" class="form-control" placeholder="Exchanger Number" formControlName="exchanger_number"/>
+      </div>
+      <div class="error">{{ error }}</div>
+    </div>
+    <div class="form-group">
+      <div class="form-control">
+        <label class="form-check-label form-check-inline">L'installation doit chauffer l'eau sanitaire</label>
+        <input type="checkbox" class="form-check form-check-inline" formControlName="domestic_water_heating" value="false"/>
+      </div>
+      <div class="error">{{ error }}</div>
+    </div>
+    <div class="form-group" *ngIf="domestic_water_heating.value == true">
+      <div class="form-group">
+        <label class="form-control-plaintext">Par que moyen? :</label>
+        <select class="form-control" formControlName="domestic_water_heating_way">
+          <option value="Watt-O">Watt-O</option>
+          <option value="Activateur ECS">Activateur ECS</option>
+        </select>
+        <div class="error">{{ error }}</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="form-control">
+        <label class="form-check-label form-check-inline">Stockage Thermique</label>
+        <input type="checkbox" class="form-check form-check-inline" formControlName="thermal_storage" value="false"/>
+      </div>
+      <div class="error">{{ error }}</div>
+    </div>
+    <div class="form-group">
+      <div class="form-control">
+        <label class="form-check-label form-check-inline">Smart-R</label>
+        <input type="checkbox" class="form-check form-check-inline" formControlName="smart_r" value="false"/>
+      </div>
+      <div class="error">{{ error }}</div>
+    </div>
+    <div class="form-group form-row">
+      <label class="col-md-3">Image</label>
+      <div class="col-md-9">
+        <input type="file" id="file" class="form-control" (change)="onSelectedFile($event)"/>
+        <div>
+          <img class="img-thumbnail" [src]="imagePath" width="100"/>
+        </div>
+      </div>
+      <div class="error">{{ error }}</div>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-danger btn-block btn-lg">Sauvegarder</button>
+    </div>
+  </form>
+</div>

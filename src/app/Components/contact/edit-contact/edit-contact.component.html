@@ -1,0 +1,77 @@
+<div class="modal-header">
+  <h4 class="modal-title">Modifier le contact</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<form [formGroup]="form" (ngSubmit)="edit()">
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="email">Email :</label>
+      <input type="email" formControlName="email" class="form-control" name="email" id="email" placeholder="Entrez votre email" value="">
+      <div *ngIf="email.touched && email.invalid">
+        <small *ngIf="email.errors.required" class="alert alert-danger">adresse e-mail est obligatoire<br></small>
+        <small *ngIf="email.errors.pattern" class="alert alert-danger">adresse e-mail n'est pas valide</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="password">Mot de passe :</label>
+      <input type="password" formControlName="password" class="form-control"  name="password" id="password" placeholder="Entrez votre mot de passe">
+      <div *ngIf="password.touched && password.invalid">
+        <small *ngIf="password.errors.minlength" class="alert alert-danger">le mot de passe doit contenir au moins 6 caractères</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="first_name">prenom</label>
+      <input type="text" [value]="contact.first_name" formControlName="first_name" class="form-control" name="first_name" id="first_name" placeholder="Entrez votre prenom">
+      <div *ngIf="first_name.touched && first_name.invalid">
+        <small *ngIf="first_name.errors.required" class="alert alert-danger">Le prénom est obligatoire<br></small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="last_name">nom</label>
+      <input type="text" formControlName="last_name" [value]="contact.last_name" class="form-control" name="last_name" id="last_name" placeholder="Entrez votre nom">
+      <div *ngIf="last_name.touched && last_name.invalid">
+        <small *ngIf="last_name.errors.required" class="alert alert-danger">Le nom est obligatoire<br></small>
+      </div>
+    </div>
+    <div class="form-group" *ngIf="isSuperadmin">
+      <label for="roles">rôle</label>
+      <select class="form-control custom-select"  id="roles" [value]="contact.roles" formControlName="roles" name="roles">
+        <option value="ROLE_SUPER_ADMIN">Super administrateur</option>
+        <option value="ROLE_ADMIN">administrateur</option>
+        <option value="ROLE_USER">utilisateur</option>
+      </select>
+      <div *ngIf="roles.touched && roles.invalid">
+        <small *ngIf="roles.errors.required" class="alert alert-danger">Le rôle est obligatoire<br></small>
+      </div>
+    </div>
+    <div class="card border-Secondary mb-3">
+      <div class="card-header">Photo</div>
+      <div class="card-body">
+        <div *ngIf="errMessage" class="alert alert-dismissible alert-danger">
+          <button type="button" class="close" (click)="dismissAlert()">&times;</button>
+          {{errMessage}}
+        </div>
+         <div class="row avatar-form">
+            <div class="avatar col-12 col-sm-5">
+                <img [src]="imagePreview" alt="user avatar" class="img-thumbnail" >
+            </div>
+            <div class="form-group p-0 btn-file-area col-12 col-sm-7">
+                <div class="input-group mt-3 mb-3 mr-2 input-file d-block">
+                    <div class="custom-file align-middle mb-3">
+                        <input type="file" class="custom-file-input" id="inputGroupFile02" (change)="getAvatar($event.target.files[0])" accept=".jpeg,.jpg,.png">
+                        <label class="custom-file-label" for="inputGroupFile02">Choisir une photo</label>
+                    </div>
+                    <button type="button" (click)="setAvatarDefault()" class="btn btn-outline-secondary text-dark d-block p-2">Supprimer avatar</button>
+                </div>
+            </div>
+         </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-outline-danger"><i class="fa fa-plus-circle" aria-hidden="true"></i> Modifier</button>
+      <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
+    </div>
+  </div>
+</form>

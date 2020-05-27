@@ -1,0 +1,17 @@
+.file-area {
+  padding: 10px;
+
+  .file-name {
+    padding: 5px;
+
+    &:hover {
+      color: darkred;
+    }
+
+    span {
+      float: right;
+      font-size: 15px;
+      cursor: pointer;
+    }
+  }
+}

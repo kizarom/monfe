@@ -1,0 +1,26 @@
+<div class="modal-header">
+    <h4 class="modal-title">Ajouter un Gamme</h4>
+    <button type="button" class="close" aria-label="close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="card">
+      <form #f="ngForm">
+        <div class="form-group">
+          <label for="gamme">Title du Gamme</label>
+          <input type="text" class="form-control" required id="gamme" [(ngModel)]="gamme.title" name="gamme" #title="ngModel"  placeholder="Entrez votre titre de gamme">
+          <div *ngIf="title.invalid && title.touched">
+            <small class="alert alert-danger">Ce champs est vide</small>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-success btn-block" (click)="save(f)">Ajouter</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
+  </div>
+  
