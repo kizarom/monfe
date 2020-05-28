@@ -9,23 +9,33 @@
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link"  *ngIf="isConnected()"  routerLink="/projets">Projets<span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link"  *ngIf="isAdmin"  routerLink="/products">Produits<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link"  *ngIf="isAdmin"  routerLink="/contacts" routerLinkActive="active">Comptes<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link"  *ngIf="isAdmin"  routerLink="/gammes" routerLinkActive="active">Gammes<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link"  *ngIf="isAdmin"  routerLink="/component" routerLinkActive="active">Composants<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link"  *ngIf="isAdmin"  routerLink="/panels" routerLinkActive="active">Panneaux<span class="sr-only">(current)</span></a>
-      </li>
     </ul>
-    <ul class="navbar-nav">
+    <ul class="navbar-nav ml-auto" *ngIf="isConnected() && isAdmin">
+      <li class="nav-item dropdown">
+        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Settings</a>
+        <div class="dropdown-menu" bis_skin_checked="1" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 37px, 0px); top: 0px; left: 0px; will-change: transform;">
+          <a routerLink="/contacts" class="dropdown-item" routerLinkActive="active">
+            <i class="fa fa-user" aria-hidden="true"></i> Comptes
+            <span class="sr-only">(current)</span>
+          </a>
+          <a routerLink="/products" class="dropdown-item" routerLinkActive="active">
+            <i class="fa fa-product-hunt" aria-hidden="true"></i> Produits
+            <span class="sr-only">(current)</span>
+          </a>
+          <a routerLink="/gammes" class="dropdown-item" routerLinkActive="active">
+            <i class="fa fa-balance-scale" aria-hidden="true"></i> Gammes
+            <span class="sr-only">(current)</span>
+          </a>
+          <a routerLink="/component" class="dropdown-item" routerLinkActive="active">
+            <i class="fa fa-list-alt" aria-hidden="true"></i> Composants
+            <span class="sr-only">(current)</span>
+          </a>
+          <a routerLink="/panels" class="dropdown-item" routerLinkActive="active">
+            <i class="fa fa-map-signs" aria-hidden="true"></i> Panneaux
+            <span class="sr-only">(current)</span>
+          </a>
+        </div>
+      </li>
       <li routerLinkActive="active"> <a class="nav-link" *ngIf="!isConnected()"  routerLink="/login">Connecter</a></li>
       <li> <a class="nav-link" style="cursor: pointer;" *ngIf="isConnected()"  (click)="logOut()">Déconnecter</a></li>
     </ul>
