@@ -16,10 +16,20 @@
         <p class="card-text font-weight-bold">Installation électrique : {{product.electrical_installation}}</p>
         <p class="card-text"><span class="font-weight-bold">Price : </span>{{product.price | number: '0.2' }} DH</p>
         <p class="card-text font-weight-bold">Description : {{product.description}}</p>
-        <a class="btn btn-danger ml-1 btn-sm rounded btn-action text-light" (click)="delete(product.id)">
+        <div>
+          <div class="file-area border border-secondary" *ngIf="product" >
+            <label>Les composants associés</label>
+              <h6 *ngIf="product.components.length == 0" class="text-center w-100">Ce produit n'a aucun composant associé.</h6>
+              <div *ngFor="let component of product.components" class="file-name text-primary border-bottom border-Secondary">
+                 - <strong class="font-weight-bold">Réf fab  : {{component.man_ref}}</strong>  <br>  <strong  class="font-weight-bold"> - Intitulé  : </strong> {{component.title}} <br> - <strong  class="font-weight-bold">Type : </strong> :  {{component.type}}
+              </div>
+          </div>
+        </div>
+        <a class="btn btn-danger ml-1 btn-sm rounded btn-action text-light mt-2" (click)="delete(product.id)">
           <i class="fa fa-trash" aria-hidden="true"></i> Supprimer
         </a>
       </div>
+    
     </div>
   </div>
 </div>

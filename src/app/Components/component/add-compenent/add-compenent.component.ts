@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ComponentInterface } from 'src/app/Models/ComponentInterface';
 import { ComponentApiService } from 'src/app/Services/component-api.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ProductApiService } from 'src/app/Services/product-api.service';
+import { Product } from 'src/app/Models/product';
 
 @Component({
   selector: 'app-add-compenent',
@@ -10,7 +12,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./add-compenent.component.scss']
 })
 export class AddCompenentComponent implements OnInit {
-
+  @ViewChild('labelcheckbox') labelcheckbox : ElementRef;
   component: ComponentInterface = {
     man_ref:"",
     rexel_ref:"",
@@ -19,19 +21,37 @@ export class AddCompenentComponent implements OnInit {
     description:"",
     type:"",
     price:0,
+    products: []
   };
   image: File;
   pdfs:File[] = [];
   errMessage: String[] = [];
   imagePreview: any = 'assets/image-default.png';
+  products: Product; 
+  linkedProducts: number[] = [];
   constructor(    
     public activeModal: NgbActiveModal,
     public componentApiService: ComponentApiService,
+    public productApiService: ProductApiService
     ) { }
 
   ngOnInit(): void {
+    this.productApiService.getProducts().subscribe((products: Product) => {
+        this.products = products;
+    });
   }
 
+  addProduct(product, label){    
+    if(label.className.includes('active')) {
+      label.classList.remove('active');  
+      this.component.products.splice(this.component.products.indexOf(product.id), 1);
+    }
+    else {
+      label.classList.add('active');  
+      this.component.products.push(product.id);
+    }
+    console.log(this.component.products);
+  }
 
   getImage(image) {
     if (!image) { return; }
@@ -94,11 +114,14 @@ export class AddCompenentComponent implements OnInit {
 
       componentData.append('image', this.image);
       componentData.append('component', JSON.stringify(this.component));
+      // componentData.append('products', JSON.stringify(this.linkedProducts));
       for (let i = 0; i < this.pdfs.length; i++) {
         componentData.append('pd_f'+i,  this.pdfs[i]); 
       }
 
       this.componentApiService.addComponent(componentData).subscribe((resp) => {
+        console.log(resp);
+        
         this.activeModal.close();
       });
     }
