@@ -30,6 +30,14 @@
       </div>
       <div>
         <div class="file-area border border-secondary" *ngIf="component" >
+          <label>Les produits associés</label>
+            <h6 *ngIf="component.products.length == 0" class="text-center w-100">Ce composant n'a aucun produit associé.</h6>
+            <div *ngFor="let product of component.products" class="file-name text-primary border-bottom border-Secondary">
+                {{product.name}}
+            </div>
+        </div>
+        <br>
+        <div class="file-area border border-secondary" *ngIf="component" >
           <label>Les fichiers associés</label>
             <h6 *ngIf="component.files.length == 0" class="text-center w-100">Ce composant n'a aucun fichier associé.</h6>
             <div *ngFor="let pdfExist of component.files text-primary" class="file-name border-bottom border-Secondary">
@@ -40,7 +48,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('cross click')">Fermer</button>
   </div>
   
   

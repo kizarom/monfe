@@ -39,6 +39,8 @@ export class ListCompenentComponent implements OnInit, AfterViewInit{
   getListComponent() {     
     this.componentService.getAllComponent().subscribe((componentsList: ComponentInterface[]) => {
       this.components = componentsList;
+      console.log(this.components);
+      
       this.componentTable = this.dataTableConfiguration.getDatatableConfiguration();
       this.spinner.hide();
     });

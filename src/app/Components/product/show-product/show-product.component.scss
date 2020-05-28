@@ -9,3 +9,19 @@
   display: block;
   margin: auto;
 }
+
+.file-area {
+  padding: 10px;
+  .file-name {
+      padding: 5px;
+      
+      a:hover, &:hover {
+          color: #1a1a1a;
+      }
+      span {
+          float: right;
+          font-size: 15px;
+          cursor: pointer;   
+      }
+  }
+}

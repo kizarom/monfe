@@ -9,5 +9,6 @@ export interface ComponentInterface {
    price:number,
    image?: string,
    files?: any[],
+   products?: number[],
    date?:Date,
 }

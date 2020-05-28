@@ -66,6 +66,15 @@
             <small class="alert alert-danger" *ngIf="description.errors.required">Ce champs est vide</small>
           </div>
         </div>
+        <div>
+          <label>Produits associés</label>
+        </div>
+        <div class="form-group btn-group btn-group-toggle">
+          <label #labelcheckbox class="btn btn-outline-primary mr-1" *ngFor="let product of products">
+            <input type="checkbox" #checkbox checked="" name="linkedProducts[]" (click)="addProduct(product, labelcheckbox)" value="{{product.name}}" autocomplete="off"> {{product.name}}
+          </label>
+        </div>
+        
         <div class="card border-Secondary mb-3">
           <div class="card-header">Image & Fichier associés</div>
           <div class="card-body">

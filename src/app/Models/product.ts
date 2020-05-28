@@ -13,5 +13,6 @@ export interface Product {
   domestic_water_heating_way?: boolean;
   thermal_storage: boolean;
   smart_r: boolean;
+  components: number[],
   product_image: string;
 }

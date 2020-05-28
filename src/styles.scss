@@ -14,7 +14,10 @@
     75%  {transform: scale(1.1)}
     100% {transform: scale(1)}
 }
-
+.file-area {
+    max-height: 200px;
+    overflow-y: scroll;
+}
 .avatar-form {
     margin: auto;
     .btn-file-area  {

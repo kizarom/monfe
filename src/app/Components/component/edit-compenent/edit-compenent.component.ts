@@ -4,6 +4,8 @@ import { ComponentApiService } from 'src/app/Services/component-api.service';
 import { AuthApiService } from 'src/app/Services/auth-api.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { Product } from 'src/app/Models/product';
+import { ProductApiService } from 'src/app/Services/product-api.service';
 
 @Component({
   selector: 'app-edit-compenent',
@@ -16,12 +18,15 @@ export class EditCompenentComponent implements OnInit {
     private componentservice: ComponentApiService,
     public _authService: AuthApiService,
     public activeModal: NgbActiveModal,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private productApiService: ProductApiService
   ) { }
   component: ComponentInterface;
   image: File;
   pdfs:File[] = [];
   pdfsExist: any[] = [];
+  linkedproducts: Product[] = [];
+  products: Product;
   deletedFilesIds:number[] = [];
   errMessage: String[] = [];
   imageDeleted: boolean = false;
@@ -31,6 +36,9 @@ export class EditCompenentComponent implements OnInit {
   form: FormGroup;
 
   ngOnInit(): void {
+    this.productApiService.getProducts().subscribe((products: Product) => {
+      this.products = products;      
+    });
     this.setForm();
   }
   
@@ -46,6 +54,8 @@ export class EditCompenentComponent implements OnInit {
     this.id = this.component.id;
     this.imagePreview = this.component.image;
     this.pdfsExist.push.apply(this.pdfsExist, this.component['files']);
+    this.linkedproducts.push.apply(this.linkedproducts, this.component['products']);
+    this.component.products = this.linkedproducts.map(prod=> {return prod.id});    
     this.form = this.formBuilder.group({
       man_ref: new FormControl(this.component.man_ref, [Validators.required]),
       rexel_ref: new FormControl(this.component.rexel_ref, [Validators.required]),
@@ -109,6 +119,22 @@ export class EditCompenentComponent implements OnInit {
     };
   }
 
+  addProduct(product, label){  
+    if(label.className.includes('active')) {
+      label.classList.remove('active');  
+      this.component.products.splice(this.component.products.indexOf(product.id), 1);
+    }
+    else {
+      label.classList.add('active');  
+      this.component.products.push(product.id);
+    }
+    console.log(this.component.products);
+  }
+
+  checkProduct(product){
+    return this.linkedproducts.some(prod => prod.id === product.id)
+  }
+
   setImageDefault() {
     this.imagePreview = 'assets/image-default.png';
     this.image = null;
@@ -126,6 +152,7 @@ export class EditCompenentComponent implements OnInit {
       componentData.append('image', this.image);
       componentData.append('imageDeleted', JSON.stringify(this.imageDeleted));
       componentData.append('component', JSON.stringify(this.form.value));
+      componentData.append('products', JSON.stringify(this.component.products));
       componentData.append('deletedFilesIds', JSON.stringify(this.deletedFilesIds));
 
       for (let i = 0; i < this.pdfs.length; i++) {
@@ -134,7 +161,7 @@ export class EditCompenentComponent implements OnInit {
 
       this.componentservice
         .editComponent(componentData, this.id)
-        .subscribe((resp) => {          
+        .subscribe((resp) => {                    
           this.activeModal.close();
         });
     }
