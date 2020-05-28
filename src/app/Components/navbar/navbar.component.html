@@ -12,7 +12,9 @@
     </ul>
     <ul class="navbar-nav ml-auto">
       <li class="nav-item dropdown"  *ngIf="isConnected() && isAdmin">
-        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Settings</a>
+        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+          <i style="font-size: 18px;" class="fa fa-cog" aria-hidden="true"></i>
+        </a>
         <div class="dropdown-menu" bis_skin_checked="1" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 37px, 0px); top: 0px; left: 0px; will-change: transform;">
           <a routerLink="/contacts" class="dropdown-item" routerLinkActive="active">
             <i class="fa fa-user" aria-hidden="true"></i> Comptes
