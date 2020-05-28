@@ -30,14 +30,12 @@
           <table *ngIf="gammes"  class="table table-hover table-striped" datatable [dtOptions]="gammeTable">
             <thead class="thead-dark">
               <tr>
-                <th scope="col">Id</th>
                 <th scope="col">title</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
               <tbody>
                 <tr *ngFor="let gamme of gammes">
-                  <td class="align-middle p-2 text-center">{{gamme.id}}</td>
                   <td class="align-middle p-2 text-center">{{gamme.title}}</td>
                   <td class="align-middle p-2 text-center">
                     <a class="btn btn-primary text-light ml-1 btn-sm rounded btn-action" (click)="show(gamme.id)"><i class="fa fa-eye" aria-hidden="true"></i></a>
