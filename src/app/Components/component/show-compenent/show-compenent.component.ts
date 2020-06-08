@@ -16,6 +16,14 @@ export class ShowCompenentComponent implements OnInit {
               public activeModal: NgbActiveModal) { }
   component: ComponentInterface;
   id:number;
+  componentsType = {
+    Recepteursolaire: "Recepteur solaire",
+    Integration: "Intégration",
+    Quincaillerie: "Quincaillerie",
+    Aerolique: "Aérolique",
+    Hydraulique: "Hydraulique",
+    Electrique: "Électrique"
+  }
   ngOnInit(): void {
     this.componentService.getOneComponent(this.id).subscribe((component: ComponentInterface) => {
       this.component = component;

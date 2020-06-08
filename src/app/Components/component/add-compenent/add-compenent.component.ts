@@ -29,6 +29,7 @@ export class AddCompenentComponent implements OnInit {
   imagePreview: any = 'assets/image-default.png';
   products: Product; 
   linkedProducts: number[] = [];
+
   constructor(    
     public activeModal: NgbActiveModal,
     public componentApiService: ComponentApiService,

@@ -48,12 +48,12 @@
         <div class="form-group">
           <label for="type">Type</label>
           <select class="form-control custom-select" required id="type" [(ngModel)]="component.type" name="type" #type="ngModel">
-            <option value="Récepteur solaire">Récepteur solaire</option>
-            <option value="Intégration">Intégration</option>
+            <option value="Recepteursolaire">Récepteur solaire</option>
+            <option value="Integration">Intégration</option>
             <option value="Quincaillerie">Quincaillerie</option>
-            <option value="Aérolique">Aérolique</option>
+            <option value="Aerolique">Aérolique</option>
             <option value="Hydraulique">Hydraulique</option>
-            <option value="Électrique">Électrique</option>
+            <option value="Electrique">Électrique</option>
           </select>
           <div *ngIf="type.invalid && type.touched">
             <small class="alert alert-danger">Ce champs est vide</small>

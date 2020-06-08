@@ -25,7 +25,14 @@ export class ListCompenentComponent implements OnInit, AfterViewInit{
 
   components: ComponentInterface[];
   componentTable: DataTables.Settings = {};
-
+  componentsType = {
+    Recepteursolaire: "Recepteur solaire",
+    Integration: "Intégration",
+    Quincaillerie: "Quincaillerie",
+    Aerolique: "Aérolique",
+    Hydraulique: "Hydraulique",
+    Electrique: "Électrique"
+  }
   ngOnInit(): void {
     this.spinner.show();
     this.getListComponent();
