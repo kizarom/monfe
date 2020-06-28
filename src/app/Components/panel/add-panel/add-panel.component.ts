@@ -13,6 +13,7 @@ export class AddPanelComponent implements OnInit {
   panel:Panel = {
     type:"",
     description:"",
+    price: 0
   };
   constructor(
     private panelservice:PanelApiService,

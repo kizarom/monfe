@@ -1,0 +1,114 @@
+<div class="row">
+  <div class="col-md-12 mt-4 col-lg-12 text-center">
+      <h1>Besoin</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-6 mx-auto mt-3">
+      <div class="bs-component">
+
+      <form [formGroup]="form" > 
+        <div class="form-group">
+          <label class="form-control-plaintext" style="font-style: italic;color:darkblue;">Afin de vous aiguiller dans le choix de votre kit, merci de nous en dire plus sur vos besoins: </label>
+        </div>
+      <div class="form-group">
+        <label class="form-control-plaintext">Puissance électrique désirée :</label>
+        <input type="text" class="form-control" placeholder="Electric Power" formControlName="electric_power"/>
+        <div class="error">{{ error }}</div>
+      </div>
+      <div class="form-group">
+        <label class="form-control-plaintext">Installation électrique du bâtiment :</label>
+        <select class="form-control custom-select" formControlName="electric_setup">
+          <option value="monophasé">Monophasé</option>
+          <option value="triphasé">Triphasé</option>
+        </select>
+        <div class="error">{{ error }}</div>
+      </div>
+      <div class="form-group">
+        <div class="form-control">
+          <label class="form-check-label form-check-inline">Ensemble électrique</label>
+          <input type="checkbox" class="form-check form-check-inline" formControlName="electric_collection" value="false"/>
+        </div>
+        <div class="error">{{ error }}</div>
+      </div>
+      <div class="form-group" *ngIf="electric_collection.value == true">
+        <div class="form-group">
+          <label class="form-control-plaintext">Type :</label>
+          <select class="form-control custom-select" formControlName="collection_type">
+            <option value="Ondulateur">Ondulateur</option>
+            <option value="Micro-ondulateur">Micro-ondulateur</option>
+          </select>
+          <div class="error">{{ error }}</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-control">
+          <label class="form-check-label form-check-inline">Production de chauffage :</label>
+          <input type="checkbox" class="form-check form-check-inline" formControlName="heating_production" value="false"/>
+        </div>
+        <div class="error">{{ error }}</div>
+      </div>
+      <div class="form-group" *ngIf="heating_production.value == true">
+        <div class="form-group">
+          <label class="form-control-plaintext">Nombre de bouches d'insufflation :</label>
+          <input type="number" class="form-control" placeholder="Exchanger Number" min="0" formControlName="heating_number_bouche"/>
+        </div>
+        <div class="error">{{ error }}</div>
+      </div>
+      <div class="form-group">
+        <div class="form-control">
+          <label class="form-check-label form-check-inline">L'installation doit chauffer l'eau sanitaire</label>
+          <input type="checkbox" class="form-check form-check-inline" formControlName="water_heating" value="false"/>
+        </div>
+        <div class="error">{{ error }}</div>
+      </div>
+      <div class="form-group" *ngIf="water_heating.value == true">
+        <div class="form-group">
+          <label class="form-control-plaintext">Par que moyen? :</label>
+          <select class="form-control custom-select" formControlName="water_heating_way">
+            <option value="Watt-O">Watt-O</option>
+            <option value="Activateur ECS">Activateur ECS</option>
+          </select>
+          <div class="error">{{ error }}</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-control">
+          <label class="form-check-label form-check-inline">Stockage Thermique</label>
+          <input type="checkbox" class="form-check form-check-inline" formControlName="thermic_storage" value="false"/>
+        </div>
+        <div class="error">{{ error }}</div>
+      </div>
+      <div class="form-group">
+        <div class="form-control">
+          <label class="form-check-label form-check-inline">Smart-R</label>
+          <input type="checkbox" class="form-check form-check-inline" formControlName="smart_r" value="false"/>
+        </div>
+        <div class="error">{{ error }}</div>
+      </div>
+
+
+      <div class="row m-3">
+          <div class="border p-1 created-areas-container col-lg-12">
+              <div class="m-1 rounded-pill bg-white p-3 d-inline-block created-area" *ngFor="let area of areas" #addedArea (click)="showArea(addedArea)" [attr.data-title]="area.title">
+                  {{area.title}}
+                 <small> ({{(area.width * area.height).toFixed(1)}}m²) </small> 
+              </div>
+          </div>
+      </div>
+
+      <div class="form-group">
+        <div class="d-flex h-100"> 
+          <div class="align-self-end mr-auto">
+              <button  class="btn btn-info rounded float-left" (click)="goBack()" ><i class="fa fa-arrow-left" aria-hidden="true"></i> Précédent</button>
+            </div>
+         <div class="align-self-end ml-auto">
+          <button class="btn btn-info rounded float-right" (click)="save()">Enregistrer et continuer <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </div>       
+    </form>
+  </div>
+</div>
+</div>

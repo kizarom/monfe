@@ -24,7 +24,7 @@ export class ContactApiService {
     return this.httpClient.post('http://localhost:8000/api/register', userData);
   }
 
-  editContact(userData: FormData, id: string){
+  editContact(userData: FormData, id: number){
     return this.httpClient.post(`http://localhost:8000/api/users/${id}`, userData, { params: { _method : 'PUT' }});
   }
 

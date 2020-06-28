@@ -1,0 +1,37 @@
+.pdf-actions {
+    span{
+        &:hover{
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+}
+
+.pdf-container {
+    width: 100%;
+}
+
+// @media screen and (min-width: 767px){
+//     .pdf-container {
+//         width: 100%;
+//     }
+// } 
+
+// @media screen and (min-width: 991px) {
+//     .pdf-container {
+//         width: 95%;
+//     }
+// }
+
+// @media screen and (min-width: 1048px) {
+//     .pdf-container {
+//         width: 85%;
+//     }
+// }
+
+
+@media screen and (min-width: 1110px) {
+    .pdf-container {
+        width: 85%;
+    }
+}

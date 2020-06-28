@@ -1,0 +1,58 @@
+  <div class="row">
+    <h3 class="text-center w-100 mt-4">composants</h3>
+  </div>
+<div class="row">
+  <form role="form" #MySelectForm="ngForm" class="col-lg-12" >
+    <div class="form-group">
+        <fieldset class="form-group">
+            <ng-select  [items]="components" multiple="true" [disabled]="!isEditing" bindLabel="title" name="composant"   [(ngModel)]="test" placeholder="recherche composant"></ng-select> 
+            <input type="submit" name="submit" value="Ajouter" [disabled]="!isEditing"  class="btn btn-primary rounded" (click)="add()"> 
+          </fieldset>
+    </div>
+    <div class="form-group">
+      <div *ngFor="let ty of types;" class="dropdown">
+              <button style="width:100%;background-color:crimson;" [disabled]="!isEditing" style="text-align:left;border-bottom: black;"  class="btn btn-secondary dropdown-toggle btn-lg btn-block" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded>
+          {{ty.type}} ({{countComponentByType[ty.nonAsciType]}})
+              </button>
+              <div class="dropdown-menu" style="width:100%;" *ngIf="product" aria-labelledby="dropdownMenuButton">
+                <div *ngFor="let a of product.components;">
+                  <div>
+                      <div class="p-2" *ngIf="ty.type=='Récepteur solaire' && a.type=='Recepteursolaire'">{{a.title}}<button (click)="delete(a)" class="btn"><i class="fa fa-remove" style="font-size:20px;color:red"></i></button></div> 
+                      <div class="p-2" *ngIf="ty.type=='Intégration' && a.type=='Integration'">{{a.title}}<button (click)="delete(a)" class="btn"><i class="fa fa-remove" style="font-size:20px;color:red"></i></button></div>               
+                      <div class="p-2" *ngIf="ty.type=='Quincaillerie' && a.type=='Quincaillerie'">{{a.title}} <button (click)="delete(a)" class="btn"><i class="fa fa-remove" style="font-size:20px;color:red"></i></button></div>                
+                      <div class="p-2" *ngIf="ty.type=='Aérolique' && a.type=='Aerolique'">{{a.title}}<button (click)="delete(a)" class="btn"><i class="fa fa-remove" style="font-size:20px;color:red"></i></button></div>                 
+                      <div class="p-2" *ngIf="ty.type=='Hydraulique' && a.type=='Hydraulique'">{{a.title}}<button (click)="delete(a)" class="btn"><i class="fa fa-remove" style="font-size:20px;color:red"></i></button></div>                
+                      <div class="p-2" *ngIf="ty.type=='Electrique' && a.type=='Electrique'">{{a.title}}<button (click)="delete(a)" class="btn"><i class="fa fa-remove" style="font-size:20px;color:red"></i></button></div> 
+                    </div>
+                </div>
+              </div>
+      </div>
+    </div>
+      <br>
+      <br>
+        <div class="row m-3">
+          <div class="border p-1 created-areas-container col-lg-12">
+              <div class="m-1 rounded-pill bg-white p-3 d-inline-block created-area" *ngFor="let area of areas" #addedArea (click)="showArea(addedArea)" [attr.data-title]="area.title">
+                  {{area.title}}
+                 <small> ({{(area.width * area.height).toFixed(1)}}m²) </small> 
+              </div>
+          </div>
+        </div>
+  
+  
+      <div class="form-group">
+          <div class="d-flex h-100"> 
+            <div class="align-self-end mr-auto">
+                <button type="submit" class="btn btn-info rounded float-left" (click)="goBack()"><i class="fa fa-arrow-left" aria-hidden="true"></i> Précedent</button>
+              </div>
+          <div class="align-self-end ml-auto">
+            <button type="submit" class="btn btn-info rounded float-right" (click)="save()"> Enregister et continuer <i class="fa fa-arrow-right" aria-hidden="true" (click)="goBack()"></i> </button>
+          </div>
+        </div>
+      </div> 
+      <div class="alert alert-dismissible alert-danger w-25 position-fixed" style="top: 10px;right: 10px" *ngIf="errorMessage">
+        {{errorMessage}}
+        <button type="button" class="close" #alert (click)="dismissAlert()">&times;</button>
+    </div>
+  </form>
+</div>

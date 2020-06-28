@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="w-100 p-4">
+        <div class="w-100 m-4">
+            <h3 class="text-center">Récapitulatif</h3>
+        </div>
+        <div class="mx-auto p-1 pdf-container">
+            <p>Félicitation, le devis <span class="font-weight-bold">{{project.title}}</span> a été enregistré avec succès</p>
+            <div class="m-2 d-flex justify-content-center pdf-actions">
+                <span class="mr-3" (click)="savePDF()"><i class="fa fa-download" aria-hidden="true"></i> Télécharger</span>
+                <span class="ml-3" (click)="printPDF()"><i class="fa fa-print" aria-hidden="true"></i> Imprimer</span>
+            </div>
+            <pdf-viewer [src]="document"
+            style="display: block;height: calc(100vh - 270px); background-color: lightgray;"
+            class="p-1"
+            [autoresize]="true"
+            ></pdf-viewer>
+        </div>
+    
+        <button class="btn btn-info rounded float-left m-3" (click)="goBack()"><i class="fa fa-arrow-left" aria-hidden="true"></i> Retour à la liste des projets</button>
+    </div>
+</div>

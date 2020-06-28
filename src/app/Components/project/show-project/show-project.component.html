@@ -1,0 +1,41 @@
+<div class="modal-header" *ngIf="project">
+  <h4 class="modal-title font-weight-bold">
+    Projet : {{ project.title }} <br />
+  </h4>
+  <button
+    class="close"
+    type="button"
+    aria-label="close"
+    (click)="activeModal.dismiss('cross click')"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <table class="table table-striped table-borderless table-sm">
+    <tr>
+      <td><label class="label-table">Client :</label></td>
+      <td>
+        {{ project.client.last_name | uppercase }}
+        {{ project.client.first_name | titlecase }} <br>
+        Email : {{ project.client.email | titlecase }}
+      </td>
+    </tr>
+    <tr>
+      <td class="label-table"><label class="label-table">Adresse :</label></td>
+      <td>
+        {{ project.adress }}, {{ project.city }} {{ project.postal_code }}
+      </td>
+    </tr>
+    <tr>
+      <td class="label-table"><label class="label-table">Prix :</label></td>
+      <td>{{ project.price }} DH</td>
+    </tr>
+    <tr>
+      <td class="label-table">
+        <label class="label-table">Date de création :</label>
+      </td>
+      <td>{{ project.created_at | date: "dd MMMM y" }}</td>
+    </tr>
+  </table>
+</div>

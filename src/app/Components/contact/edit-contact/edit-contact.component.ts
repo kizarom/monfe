@@ -22,7 +22,7 @@ export class EditContactComponent implements OnInit, AfterContentChecked {
   isLoading = false;
   contact: Contact;
   form: FormGroup;
-  id: string;
+  id: number;
   constructor(
     private contactservice: ContactApiService,
     public _authService: AuthApiService,

@@ -20,6 +20,7 @@ export class EditPanelComponent implements OnInit {
   ) { }
   get type() { return this.form.get('type') }
   get description() { return this.form.get('description') }
+  get price() { return this.form.get('price') }
 
   ngOnInit(): void {
     this.setForm();
@@ -32,6 +33,7 @@ export class EditPanelComponent implements OnInit {
     this.form = this.formBuilder.group({
       type: new FormControl(this.panel.type, [Validators.required]),
       description: new FormControl(this.panel.description, [Validators.required]),
+      price: new FormControl(this.panel.price, [Validators.required]),
     });
   }
 

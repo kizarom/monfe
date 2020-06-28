@@ -14,6 +14,7 @@ export class ShowPanelComponent implements OnInit {
   panel:Panel = {
     type:"",
     description:"",
+    price: 0
   };
   id: string;
 

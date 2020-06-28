@@ -116,7 +116,7 @@ export class ListProductComponent implements OnInit, AfterViewInit {
   }
 
   private getProductsList() {
-    this.productApiService.getProducts().subscribe((product: Product[]) => {
+    this.productApiService.getProducts().subscribe((product: Product[]) => {      
       this.products = product;
       console.log(product);
       this.productTable = this.dataTableConfiguration.getDatatableConfiguration();

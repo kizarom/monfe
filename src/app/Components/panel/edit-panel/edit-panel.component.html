@@ -7,19 +7,26 @@
 <form [formGroup]="form" (ngSubmit)="edit()">
     <div class="modal-body">
         <div class="form-group">
-            <label for="type">type</label>
-            <input type="text" [value]="panel.type" formControlName="type" class="form-control" name="type" id="type" placeholder="Entrez type">
+            <label for="type">Type</label>
+            <input type="text" [value]="panel.type" formControlName="type" class="form-control" name="type" id="type" placeholder="Entrez le type">
             <div *ngIf="type.touched && type.invalid">
               <small *ngIf="type.errors.required" class="alert alert-danger">type est obligatoire<br></small>
             </div>
         </div>
         <div class="form-group">
-            <label for="description">description</label>
-            <input type="text" formControlName="description" [value]="panel.description" class="form-control" name="description" id="description" placeholder="Entrez description">
+            <label for="description">Description</label>
+            <input type="text" formControlName="description" [value]="panel.description" class="form-control" name="description" id="description" placeholder="Entrez la description">
             <div *ngIf="description.touched && description.invalid">
-              <small *ngIf="description.errors.required" class="alert alert-danger">description est obligatoire<br></small>
+              <small *ngIf="description.errors.required" class="alert alert-danger">La description est obligatoire<br></small>
             </div>
         </div>
+        <div class="form-group">
+          <label for="price">Prix</label>
+          <input type="text" formControlName="price" [value]="panel.price" class="form-control" name="price" id="price" placeholder="Entrez le price">
+          <div *ngIf="price.touched && price.invalid">
+            <small *ngIf="price.errors.required" class="alert alert-danger">Le price est obligatoire<br></small>
+          </div>
+      </div>
         <div class="modal-footer">
             <button type="submit" class="btn btn-outline-danger"><i class="fa fa-plus-circle" aria-hidden="true"></i> Modifier</button>
          </div>

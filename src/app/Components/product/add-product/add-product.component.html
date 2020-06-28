@@ -5,7 +5,7 @@
   </button>
 </div>
 <div class="modal-body">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <form [formGroup]="form" (ngSubmit)="onSubmit(kitValue)">
     <div class="form-group">
       <label class="form-control-plaintext">Nom du produit :</label>
       <input type="text" class="form-control" placeholder="Name" formControlName="name"/>
@@ -28,11 +28,48 @@
     </div>
     <div class="form-group">
       <label class="form-control-plaintext">Installation électrique du bâtiment :</label>
-      <select class="form-control" formControlName="electrical_installation">
+      <select class="form-control custom-select" formControlName="electrical_installation">
         <option value="monophasé">Monophasé</option>
         <option value="triphasé">Triphasé</option>
       </select>
       <div class="error">{{ error }}</div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-9">
+        <label class="form-control-plaintext">Panneau : </label>
+        <select class="form-control custom-select" #panel>
+          <option *ngFor="let panel of panels" [attr.data-type]="panel.type" value="{{panel.id}}">{{panel.description}} ({{panel.type}})</option>
+        </select>
+        <div class="error">{{ error }}</div>
+      </div>
+      <div class="form-group col-md-3">
+        <label class="form-control-plaintext">Nombre : </label>
+        <input type="number" #panelNumber class="form-control d-inline-block w-50 mr-2" min="1">
+        <button type="button" class="btn btn-success rounded" style="padding: 0.60rem 1.5rem;" (click)="addPanel(panel, panelNumber)">
+          <i class="fa fa-plus" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+    <div class="form-group">
+      <ul class="list-group">
+        <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let linkedPanel of linkedPanels">
+          {{linkedPanel.title}}
+          <div class="m-0">
+            <span class="badge badge-primary badge-pill mr-1">{{linkedPanel.number}}</span>
+            <span class="text-danger delete-linked-panel"><i class="fa fa-times" aria-hidden="true" (click)="deleteLinkedPanel(linkedPanel)"></i></span>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label class="form-control-plaintext">Nombre de linges : </label>
+        <input type="number" #panelNumber class="form-control" name="rows" formControlName="rows" min="0">
+      </div>
+      <div class="form-group col-md-6">
+        <label class="form-control-plaintext">Nombre de colonnes : </label>
+        <input type="number" #panelNumber class="form-control" name="columns" formControlName="columns" min="0">
+      </div>
     </div>
     <div class="form-group">
       <div class="form-control">
@@ -44,7 +81,7 @@
     <div class="form-group" *ngIf="electrical_assembly.value == true">
       <div class="form-group">
         <label class="form-control-plaintext">Type :</label>
-        <select class="form-control" formControlName="electrical_assembly_type">
+        <select class="form-control custom-select" formControlName="electrical_assembly_type">
           <option value="Ondulateur">Ondulateur</option>
           <option value="Micro-ondulateur">Micro-ondulateur</option>
         </select>
@@ -75,7 +112,7 @@
     <div class="form-group" *ngIf="domestic_water_heating.value == true">
       <div class="form-group">
         <label class="form-control-plaintext">Par que moyen? :</label>
-        <select class="form-control" formControlName="domestic_water_heating_way">
+        <select class="form-control custom-select" formControlName="domestic_water_heating_way">
           <option value="Watt-O">Watt-O</option>
           <option value="Activateur ECS">Activateur ECS</option>
         </select>
@@ -105,6 +142,10 @@
         </div>
       </div>
       <div class="error">{{ error }}</div>
+    </div>
+    <div class="form-group">
+      <label class="form-control-plaintext">Kit description :</label>
+      <input type="text" class="form-control" disabled readonly #kitValue value="{{form.value.name}} {{form.value.electric_power}}WC / {{panelKit}}, {{form.value.rows}}L{{form.value.columns}}C">
     </div>
     <div class="form-group">
       <button class="btn btn-success btn-block">Sauvegarder</button>
