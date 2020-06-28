@@ -1,18 +1,22 @@
 export interface Product {
-  id?: number;
-  name: string;
-  description: string;
-  price: number;
-  electric_power: number;
-  electrical_installation: string;
-  electrical_assembly: boolean;
-  electrical_assembly_type?: string;
-  heat_production: boolean;
-  exchanger_number?: boolean;
-  domestic_water_heating: boolean;
-  domestic_water_heating_way?: boolean;
-  thermal_storage: boolean;
-  smart_r: boolean;
+  id?: number,
+  name: string,
+  description: string,
+  price: number,
+  kit_description:string,
+  grid_rows:number,
+  grid_columns:number,
+  electric_power: number,
+  electrical_installation: string,
+  electrical_assembly: boolean,
+  electrical_assembly_type?: string,
+  heat_production: boolean,
+  exchanger_number?: boolean,
+  domestic_water_heating: boolean,
+  domestic_water_heating_way?: boolean,
+  thermal_storage: boolean,
+  smart_r: boolean,
   components: number[],
-  product_image: string;
+  product_image: string,
+  _panels_data?:any[]
 }

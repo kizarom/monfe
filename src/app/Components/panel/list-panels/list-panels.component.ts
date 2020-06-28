@@ -19,6 +19,7 @@ export class ListPanelsComponent implements OnInit, AfterViewInit {
   panel:Panel = {
     type:"",
     description:"",
+    price: 0
   };
   panelTable: DataTables.Settings = {};
   constructor(

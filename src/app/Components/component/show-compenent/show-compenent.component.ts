@@ -12,8 +12,9 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ShowCompenentComponent implements OnInit {
 
-  constructor(private componentService: ComponentApiService,
-              public activeModal: NgbActiveModal) { }
+  constructor(
+    private componentService: ComponentApiService,
+    public activeModal: NgbActiveModal) { }
   component: ComponentInterface;
   id:number;
   componentsType = {

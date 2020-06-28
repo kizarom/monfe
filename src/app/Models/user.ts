@@ -1,9 +1,9 @@
 export interface User {
 
-    email: "",
-    password: "",
-    firstName: "",
-    lastName: "",
-    roles: [""],
+  email: '';
+  password: '';
+  firstName: '';
+  lastName: '';
+  roles: [''];
 
 }

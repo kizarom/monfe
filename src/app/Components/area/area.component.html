@@ -1,0 +1,226 @@
+<div class="row">
+    <div class="w-100 m-4">
+        <h1 class="text-center">Surface de pose</h1>
+    </div>
+
+    <div class="w-100 p-4">
+        <form class="w-100" #areaForm="ngForm">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Intitulé</label>
+                <input type="text" (input)="onTitleChange($event)" required  name="title" [(ngModel)]="area.title" #title="ngModel" class="form-control w-50" id="title" placeholder="Intitulé du surface de pose">
+                <div *ngIf="title.invalid && title.touched">
+                    <small class="alert alert-danger" *ngIf="title.errors.required">Ce champs est obligatoir !</small>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleSelect1">Revêtement</label>
+                <select class="custom-select w-25 d-block" id="coating" required #coating="ngModel" name="coating" [(ngModel)]="area.coating">
+                    <option value="Acier">Acier</option>
+                    <option value="Ardoise">Ardoise</option>
+                    <option value="Bois">Bois</option>
+                    <option value="Chaume">Chaume</option>
+                    <option value="Liège">Liège</option>
+                    <option value="Shingle">Shingle</option>
+                    <option value="Tuile">Tuile</option>
+                    <option value="Végétalisées">Végétalisées</option>
+                    <option value="Zinc">Zinc</option>
+                    <option value="Zinc">Autre</option>
+                </select>
+                <div *ngIf="coating.invalid && coating.touched">
+                    <small class="alert alert-danger" *ngIf="coating.errors.required">Ce champs est obligatoir !</small>
+                </div>
+            </div>
+            <div class="form-group">
+            <label for="exampleSelect1">Orientation</label>
+            <select class="custom-select w-25 d-block" id="orientation" #orientation="ngModel" required name="orientation" [(ngModel)]="area.orientation" #orientation (change)="setDirection(orientation)">
+                <option value=""></option>
+                <option value="Nord">Nord</option>
+                <option value="Est">Est</option>
+                <option value="Sud">Sud</option>
+                <option value="Ouest">Ouest</option>
+            </select>
+            <div *ngIf="orientation.invalid && orientation.touched">
+                <small class="alert alert-danger" *ngIf="orientation.errors.required">Ce champs est obligatoir !</small>
+            </div>
+            </div>
+            <br>
+            <div class="w-100">
+                <div class="input-group d-inline">
+                    <img width="70px" class="m-3" src="assets/area/areaWidth.png" alt="">
+                    <input #areaWidth="ngModel" pattern="^([0-9]*)(\.[0-9]+)?$" [(ngModel)]="area.width" [class.border-danger]="(areaWidth.invalid && areaWidth.touched) && (areaWidth.errors.required || areaWidth.errors.pattern)" required name="areaWidth" class="form-control form-control-sm p-1 d-inline border" style="width: 60px;" type="text">
+                    <span class="input-group-text right-input-label" [class.bg-danger]="(areaWidth.invalid && areaWidth.touched) && (areaWidth.errors.required || areaWidth.errors.pattern)" >m</span>
+                    <i class="text-danger m-1 fa fa-times-circle-o" style="font-size: 20px;vertical-align: middle;" *ngIf="areaWidth.invalid && areaWidth.touched && areaWidth.errors.pattern" data-toggle="tooltip" data-placement="bottom" title="La largeur doit être numérique de format N.N !"></i>
+                    <i class="text-danger m-1 fa fa-times-circle-o" style="font-size: 20px;vertical-align: middle;" *ngIf="areaWidth.invalid && areaWidth.touched && areaWidth.errors.required" data-toggle="tooltip" data-placement="bottom" title="La largeur est obligatoir !"></i>
+                        <!-- <small class="tooltip" *ngIf="areaWidth.invalid && areaWidth.touched && areaWidth.errors.required">La largeur est vide</small>
+                        <small class="tooltip" ></small> -->
+                
+                </div>
+                <div class="form-group has-danger d-inline">
+                    <img width="70px" class="m-3" src="assets/area/areaHeight.png" alt="">
+                    <input #areaheight="ngModel" pattern="^([0-9]*)(\.[0-9]+)?$" [class.border-danger]="(areaheight.invalid && areaheight.touched) && (areaheight.errors.required || areaheight.errors.pattern)"  required [(ngModel)]="area.height" name="areaHeight" class="form-control form-control-sm p-1 d-inline border" style="width: 60px;" type="text">
+                    <span class="input-group-text right-input-label" [class.bg-danger]="(areaheight.invalid && areaheight.touched) && (areaheight.errors.required || areaheight.errors.pattern)">m</span>
+                    <i class="text-danger m-1 fa fa-times-circle-o" style="font-size: 20px;vertical-align: middle;" *ngIf="areaheight.invalid && areaheight.touched && areaheight.errors.pattern" data-toggle="tooltip" data-placement="bottom" title="la hauteur doit être numérique de format N.N"></i>
+                    <i class="text-danger m-1 fa fa-times-circle-o" style="font-size: 20px;vertical-align: middle;" *ngIf="areaheight.invalid && areaheight.touched && areaheight.errors.required" data-toggle="tooltip" data-placement="bottom" title="La hauteur est obligatoir !"></i>
+ 
+                </div>
+                <div class="d-inline">
+                    <img width="70px" class="m-3" src="assets/area/areaM2.png" alt="">
+                    <span class="input-group-text right-input-label d-inline-block" style="width: 80px;"><span *ngIf="area.width && area.height">{{(area.width * area.height).toFixed(1)}} </span> <span>m²</span></span>
+                    <!-- <input class="form-control-sm p-1 d-inline" style="width: 60px;" type="text"> m -->
+                </div>
+            </div>
+            <br>
+            <div class="row">
+               <div class="col-lg-4">
+                     <div class="mb-2 delete-wc-area" *ngFor="let windowChimney of windowsChimneies; let i = index">
+                        <select class="custom-select mr-3 select-area" id="coating" name="type{{i}}" [(ngModel)]="windowChimney.type">
+                            <option value="window">Fenêtre</option>
+                            <option value="chimney">Cheminée</option>
+                        </select>
+                        <div class="input-group d-inline">
+                           
+                            <input class="form-control form-control-sm p-1 d-inline" pattern="^([0-9]*)(\.[0-9]+)?$" required [(ngModel)]="windowChimney.width" name="windowChimney-width{{i}}" style="width: 30px;" type="text">
+                            <span class="input-group-text right-input-label" >m</span>
+                            x
+                            <input class="form-control form-control-sm p-1 d-inline" pattern="^([0-9]*)(\.[0-9]+)?$" required [(ngModel)]="windowChimney.height" name="windowChimney-height{{i}}"  style="width: 30px;" type="text">
+                            <span class="input-group-text right-input-label" >m</span>
+                        </div>
+                        <button class="d-none btn btn-danger btn-sm border rounded ml-2" (click)="deleteWindowsFireplace(windowChimney)">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <span class="text-secondary addInArea" (click)="addwindowChimney()">+ ajouter une fenêtre ou une cheminée</span>
+                </div> 
+                
+
+                <div  class="col-lg-8 border border-secondary rounded area-container">
+                    <img width="30" *ngIf="direction" src="assets/area/{{direction}}.png" class="m-2 corners top-right" alt="" style="width: 30px;height: 30px;">
+                    <div id="area-scroller">
+                        <div class="border border-info m-3 bg-light position-relative area-resize"
+                        #areaBlock id="area" (mouseleave)="mouseLeave(areaBlock)" (mouseenter)="mouseEnter(areaBlock)" [style.width]="area.width != 0 ? area.width * scall+'px': 0 " [style.height]="area.height != 0 ? area.height * scall+'px' : 0 ">
+                            <!-- <div class='resizer corner-top-left'></div>
+                            <div class='resizer corner-top-right'></div>
+                            <div class='resizer corner-bottom-left'></div> -->
+                            <p class="m-0 w-100 text-center font-weight-bold position-absolute unselectable" style="font-size: 10px;top:-15px">
+                                <!-- <i class="fa fa-arrow-left" aria-hidden="true"></i> -->
+                                <span>{{area.width}} m </span>
+                                <!-- <i class="fa fa-arrow-right" aria-hidden="true"></i>  -->
+                            </p>
+                            <p class="m-0 h-100 left-center font-weight-bold position-absolute unselectable" style="font-size: 10px;left:-35px">
+                                    <!-- <i class="fa fa-arrow-up" aria-hidden="true"></i> <br> -->
+                                    <span>{{area.height}} m </span> <br>
+                                <!-- <i class="fa fa-arrow-down" aria-hidden="true"></i>  -->
+                            </p>
+                            <div class='resizer corner-bottom-right' id="corner_area_bottom_right"></div>
+                            <span class="addInArea" id="top-left-button" (mousedown)="$event.stopPropagation()" (click)="addcorner('top-left')"><i id="top_left_text" class="fa fa-plus-circle" aria-hidden="true"></i></span>
+                            <span class="addInArea" id="top-right-button" (mousedown)="$event.stopPropagation()" (click)="addcorner('top-right')"><i id="top_right_text" class="fa fa-plus-circle" aria-hidden="true"></i></span>
+                            <span class="addInArea" id="bottom-left-button" (mousedown)="$event.stopPropagation()" (click)="addcorner('bottom-left')"><i id="bottom_left_text" class="fa fa-plus-circle" aria-hidden="true"></i></span>
+                            <span class="addInArea" id="bottom-right-button" (mousedown)="$event.stopPropagation()" (click)="addcorner('bottom-right')"><i id="bottom_right_text" class="fa fa-plus-circle" aria-hidden="true"></i></span>
+                            <div (mousedown)="$event.stopPropagation()" *ngIf="cornersAction.topLeft"
+                                class="border border-info corners top-left"
+                                [style.width]="cornersSize.topLeft.width != 0 ? cornersSize.topLeft.width +'px': scall " [style.height]="cornersSize.topLeft.height != 0 ? cornersSize.topLeft.height+'px' : scall "
+                                >
+                                <div class='resizer corner-bottom-right'></div>
+                                <div class="size-info" style="font-size: 7px;height: 100%;">
+                                    <p class="m-0 bottom-center">
+                                        <!-- <i class="fa fa-arrow-left" aria-hidden="true"></i> -->
+                                        <span>{{(cornersSize.topLeft.width/scall).toFixed(1)}} m </span>
+                                    <!-- <i class="fa fa-arrow-right" aria-hidden="true"></i>  -->
+                                    </p>
+                                    <p class="m-0 right-center">
+                                        <!-- <i class="fa fa-arrow-up" aria-hidden="true"></i> <br> -->
+                                        <span>{{(cornersSize.topLeft.height/scall).toFixed(1)}} m </span> <br>
+                                        <!-- <i class="fa fa-arrow-down" aria-hidden="true"></i>  -->
+                                    </p>
+                                </div>
+                            </div>
+                            <div (mousedown)="$event.stopPropagation()" *ngIf="cornersAction.topRight"
+                            class="border border-info corners top-right"
+                            [style.width]="cornersSize.topRight.width != 0 ? cornersSize.topRight.width +'px': scall " [style.height]="cornersSize.topRight.height != 0 ? cornersSize.topRight.height+'px' : scall "
+                            >
+                                <div class='resizer corner-bottom-left'></div>
+                                <div class="size-info" style="font-size: 7px;height: 100%;">
+                                    <p class="m-0 bottom-center">
+                                        <!-- <i class="fa fa-arrow-left" aria-hidden="true"></i> -->
+                                        <span>{{(cornersSize.topRight.width/scall).toFixed(1)}} m </span>
+                                    <!-- <i class="fa fa-arrow-right" aria-hidden="true"></i>  -->
+                                    </p>
+                                    <p class="m-0 left-center">
+                                        <!-- <i class="fa fa-arrow-up" aria-hidden="true"></i> <br> -->
+                                        <span>{{(cornersSize.topRight.height/scall).toFixed(1)}} m </span> <br>
+                                        <!-- <i class="fa fa-arrow-down" aria-hidden="true"></i>  -->
+                                    </p>
+                                </div>
+                            </div>
+                            <div (mousedown)="$event.stopPropagation()" *ngIf="cornersAction.bottomRight" 
+                                class="border border-info corners bottom-right"
+                                [style.width]="cornersSize.bottomRight.width != 0 ? cornersSize.bottomRight.width +'px': scall " [style.height]="cornersSize.bottomRight.height != 0 ? cornersSize.bottomRight.height+'px' : scall "
+                                >
+                                <div class='resizer corner-top-left'></div>
+                                <div class="size-info" style="font-size: 7px;height: 100%;">
+                                    <p class="m-0 top-center">
+                                        <!-- <i class="fa fa-arrow-left" aria-hidden="true"></i> -->
+                                        <span>{{(cornersSize.bottomRight.width/scall).toFixed(1)}} m </span>
+                                    <!-- <i class="fa fa-arrow-right" aria-hidden="true"></i>  -->
+                                    </p>
+                                    <p class="m-0 left-center">
+                                        <!-- <i class="fa fa-arrow-up" aria-hidden="true"></i> <br> -->
+                                        <span>{{(cornersSize.bottomRight.height/scall).toFixed(1)}} m </span> <br>
+                                        <!-- <i class="fa fa-arrow-down" aria-hidden="true"></i>  -->
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div (mousedown)="$event.stopPropagation()" *ngIf="cornersAction.bottomLeft" 
+                                class="border border-info corners bottom-left"
+                                [style.width]="cornersSize.bottomLeft.width != 0 ? cornersSize.bottomLeft.width +'px': scall " [style.height]="cornersSize.bottomLeft.height != 0 ? cornersSize.bottomLeft.height+'px' : scall "
+                                >
+                                <div class='resizer corner-top-right'></div>
+                                <div class="size-info" style="font-size: 7px;height: 100%;">
+                                    <p class="m-0 top-center">
+                                        <!-- <i class="fa fa-arrow-left" aria-hidden="true"></i> -->
+                                        <span>{{(cornersSize.bottomLeft.width/scall).toFixed(1)}} m </span>
+                                    <!-- <i class="fa fa-arrow-right" aria-hidden="true"></i>  -->
+                                    </p>
+                                    <p class="m-0 right-center">
+                                        <!-- <i class="fa fa-arrow-up" aria-hidden="true"></i> <br> -->
+                                        <span>{{(cornersSize.bottomLeft.height/scall).toFixed(1)}} m </span> <br>
+                                        <!-- <i class="fa fa-arrow-down" aria-hidden="true"></i>  -->
+                                    </p>
+                                </div>
+                            </div>
+                            <div *ngFor="let windowChimney of windowsChimneies; let i = index" id="window_chimney{{i}}" (mousedown)="$event.stopPropagation()"  style="background-color: #f2f2f2;" class="border border-info d-flex justify-content-center align-items-center inner" [style.width]="windowChimney.width != 0 ? windowChimney.width * scall+'px': 0 " [style.height]="windowChimney.height != 0 ? windowChimney.height * scall+'px' : 0 ">
+                            <span>{{types[windowChimney.type]}}</span> 
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row m-3">
+                <div class="border p-1 created-areas-container col-lg-11">
+                    <div class="m-1 rounded-pill bg-white p-3 d-inline-block created-area" *ngFor="let area of areas" #addedArea (click)="showArea(addedArea)" [attr.data-title]="area.title">
+                        {{area.title}}
+                       <small> ({{(area.width * area.height).toFixed(1)}}m²) </small> 
+                       <span class="m-0">
+                        <i class="fa fa-times created-area-delete" aria-hidden="true" (click)="deleteCreatedArea(addedArea)" ></i>
+                        </span>
+                    </div>
+                </div>
+                <div id="add_area" class="add-area border col-lg-1" (click)="addArea(areaForm)">
+                    +
+                </div>
+            </div>
+            <div class="m-3">
+                <button class="btn btn-info rounded float-left" (click)="goBack()"><i class="fa fa-arrow-left" aria-hidden="true"></i> Précedent</button>
+                <button class="btn btn-info rounded float-right" (click)="save()">Enregistrer et continuer <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+            </div>
+            <div class="alert alert-dismissible alert-danger w-25 position-fixed" style="top: 10px;right: 10px" *ngIf="errorForm">
+                {{errorForm}}
+                <button type="button" class="close" #alert (click)="dismissAlert()">&times;</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+

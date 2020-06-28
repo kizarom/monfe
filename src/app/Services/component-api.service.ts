@@ -10,7 +10,7 @@ export class ComponentApiService {
   constructor(private httpClient:HttpClient) { }
 
   getAllComponent(){
-    return this.httpClient.get('http://localhost:8000/api/components');
+    return this.httpClient.get('http://localhost:8000/api/components/');
   }
 
   getOneComponent(id: number){

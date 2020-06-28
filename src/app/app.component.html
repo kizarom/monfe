@@ -1,5 +1,6 @@
 
  <app-navbar></app-navbar>
+ <div *ngIf="hasRoute('create/project')" class="border border-left" style="float: left;"><app-navs ></app-navs></div>
  <div class="container-fluid">
   <router-outlet></router-outlet>
 </div>

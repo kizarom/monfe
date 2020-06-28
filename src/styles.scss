@@ -1,62 +1,176 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@ng-select/ng-select/themes/material.theme.css";
 
-.modal-content{
-    animation-name: ngbModel;
-    animation-duration: 0.4s;
+html, body{
+    height: 100%;
+    margin: 0;
 }
-  
+
+.modal-content {
+  animation-name: ngbModel;
+  animation-duration: 0.4s;
+}
+
 .modal-dialog {
-    max-width: 95% !important;
+  max-width: 95% !important;
 }
 
 @keyframes ngbModel {
-    0%   {transform: scale(0.5)}
-    75%  {transform: scale(1.1)}
-    100% {transform: scale(1)}
+  0% {
+    transform: scale(0.5);
+  }
+  75% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 .file-area {
-    max-height: 200px;
-    overflow-y: scroll;
+  max-height: 200px;
+  overflow-y: scroll;
 }
 .avatar-form {
-    margin: auto;
-    .btn-file-area  {
-        display: flex;
-        .input-file {
-            justify-content: center;
-            align-content: center;
+  margin: auto;
+  .btn-file-area {
+    display: flex;
+    .input-file {
+      justify-content: center;
+      align-content: center;
 
-            label.custom-file-label {
-                font-size: 85%;
-            }
-        }
+      label.custom-file-label {
+        font-size: 85%;
+      }
     }
-    .avatar img {
-        border-radius: 50px;
-        width: 130px;
-        height: 130px;
-        background-color: white;
-    }
+  }
+  .avatar img {
+    border-radius: 50px;
+    width: 130px;
+    height: 130px;
+    background-color: white;
+  }
 }
-
 .table thead th {
-    padding: 20px !important;
-    text-align: center;
+  padding: 20px !important;
+  text-align: center;
 }
 
 .btn-action {
-    padding: 6px 16px ;
+  padding: 6px 16px;
 }
 .cell-avatar {
-    width: 70px;
-    height: 70px;
-    border-radius: 30px;
-
+  width: 70px;
+  height: 70px;
+  border-radius: 30px;
 }
 
 .table-container {
-    overflow-x: auto;
- }
+  overflow-x: auto;
+}
+
+
+ /* -- for area component -- */
+
+.resizer{
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+    border: 1px solid #4286f4;
+    position: absolute;
+}
+
+.resizer.corner-top-left {
+    left: -4px;
+    top: -4px;
+    cursor: nwse-resize;
+}
+
+.resizer.corner-top-right {
+    right: -4px;
+    top: -4px;
+    cursor: nesw-resize;
+}
+
+.resizer.corner-bottom-left {
+    left: -4px;
+    bottom: -4px;
+    cursor: nesw-resize;
+}
+
+ 
+.resizer.corner-bottom-right {
+    right: -4px;
+    bottom: -4px;
+    cursor: nwse-resize;
+}
+
+.inner-area{
+    background-color: #f2f2f2;
+    position: absolute;
+}
+.delete-inner-area {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    cursor: pointer;
+    color: red;
+    display: none;
+    font-size: 16px;
+}
+
+
+.inner-area:hover {
+
+    .delete-inner-area {
+        display: inline;
+    }
+}
+
+.left-center, .right-center, .bottom-center, .top-center {
+    position: absolute;
+    text-align: center;
+}
+
+.left-center, .right-center, .bottom-center, .top-center {
+    span {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+}
+
+.top-center, .bottom-center {
+    width: 100%;
+}
+
+.right-center, .left-center{
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.right-center {
+    right: 0;
+}
+
+.bottom-center {
+    bottom: 0;
+}
+
+.top-center {
+    top: 0;
+}
+
+.left-center {
+    left: 0;
+}
+
+
+ /* -- end for area component -- */
 
 @media screen and (min-width: 767px){
     .modal-dialog {
@@ -68,21 +182,25 @@
 } 
 
 @media screen and (min-width: 991px) {
-    .modal-dialog {
-        max-width: 60% !important;
-    }
+  .modal-dialog {
+    max-width: 60% !important;
+  }
 
-    .table-container {
-        overflow-x: unset;
-     }
+  .table-container {
+    overflow-x: unset;
+  }
 }
 
 @media screen and (min-width: 1048px) {
-    .modal-dialog {
-        max-width: 50% !important;
-    }
+  .modal-dialog {
+    max-width: 50% !important;
+  }
 
-    .table-container {
-        overflow-x: unset;
-     }
+  .table-container {
+    overflow-x: unset;
+  }
+}
+
+.label-table {
+  font-weight: bolder;
 }

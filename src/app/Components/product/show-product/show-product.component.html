@@ -15,7 +15,8 @@
         <p class="card-text font-weight-bold">Puissance électrique : {{product.electric_power}}</p>
         <p class="card-text font-weight-bold">Installation électrique : {{product.electrical_installation}}</p>
         <p class="card-text"><span class="font-weight-bold">Price : </span>{{product.price | number: '0.2' }} DH</p>
-        <p class="card-text font-weight-bold">Description : {{product.description}}</p>
+        <p class="card-text"><span class="font-weight-bold">Description : </span>{{product.description}}</p>
+        <p><span class="font-weight-bold">Descripiton du kit : </span>{{product.kit_description}}</p>
         <div>
           <div class="file-area border border-secondary" *ngIf="product" >
             <label>Les composants associés</label>

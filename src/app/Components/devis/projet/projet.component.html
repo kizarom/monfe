@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="col-md-10 mt-4 mx-auto text-center">
+        <h1>Projet</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6 mx-auto mt-3">
+        <div class="bs-component">
+         <form #f="ngForm">
+            <div class="form-group">
+                <label for="titre">titre</label>
+                <input type="text" class="form-control" [(ngModel)]="projet.title"  #titre="ngModel"   required id="titre"  name="titre"  aria-describedby="emailHelp"  placeholder="Enter titre">   
+            </div>
+            <div class="form-group" >
+                <label for="client">client</label> 
+                <div class="input-group">    
+                <select class="custom-select" class="form-control custom-select" [(ngModel)]="idClient"   #client="ngModel" required id="client"  name="client"  placeholder="select client">
+                  <option [ngValue]="contact.id" *ngFor="let contact of contacts">{{contact.first_name}} {{contact.last_name}}</option>
+                </select> 
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary btn-sm ml-1 p-2 rounded" (click)="create()" type="button">ajouter</button>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+                <label for="adresse">adresse</label>
+                <input type="text" class="form-control" required [(ngModel)]="projet.adress"  #adresse="ngModel" id="adresse"  name="adresse"  aria-describedby="emailHelp" placeholder="Enter titre">
+                
+            </div>
+            <div class="form-group">
+                <label for="ville">ville</label>
+                <input type="text" class="form-control" required [(ngModel)]="projet.city"  #ville="ngModel" id="ville"  name="ville"  aria-describedby="emailHelp" placeholder="Enter ville">
+                
+            </div>
+            <div class="form-group">
+                <label for="codepostal">codepostal</label>
+                <input type="number" class="form-control" required [(ngModel)]="projet.postalcode"  #codepostal="ngModel" id="codepostal"  name="codepostal"  aria-describedby="emailHelp" placeholder="Enter codepostal">
+                
+            </div>
+            <div class="form-group">
+          <div class="d-flex h-100"> 
+          <div class="align-self-end ml-auto">
+            <button type="submit" class="btn btn-info rounded float-right" (click)="save(f)">Enregistrer et continuer  <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+          </div>
+        </div>
+      </div> 
+    </form>
+    </div>
+  </div>
+</div>
