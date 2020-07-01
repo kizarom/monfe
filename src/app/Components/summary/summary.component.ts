@@ -83,6 +83,21 @@ export class SummaryComponent implements OnInit, OnDestroy {
       })
       return data;
     }
+    let getComponentsData = ()=>{
+      let data:any = [];
+      this.components.forEach((comps)=>{
+        comps.product.forEach((comp,i)=> {
+          var dt = data.findIndex(d=>d[0]==comp.title);
+          if(dt !== -1){
+            data[dt][1]++;
+            data[dt][3] = ((comp.price*data[dt][1])/1.2).toFixed(2);
+            data[dt][4] = (comp.price*data[dt][1]);
+          } 
+          else data.push([comp.title, 1, comp.price, (comp.price/1.2).toFixed(2), comp.price]);
+        });
+      });
+      return data;
+    }
     let componentsTotalPrice = 0;
     let componentsCount = 0;
     this.components.forEach(comps=>{
@@ -103,8 +118,8 @@ export class SummaryComponent implements OnInit, OnDestroy {
       theme: 'grid',
       headStyles: {fillColor:  [75, 75, 75], halign: 'center'},
       bodyStyles: {halign: 'center'},
-      head: [[ "Nombre de composant", "Total prix HT (DH)","Totla prix TTC (DH)"]],
-      body: [[componentsCount, (componentsTotalPrice/1.2).toFixed(2), componentsTotalPrice]]
+      head: [[ "composant", "Quantité","Prix unitaire (DH)","Total prix HT (DH) ","Total prix TTC (DH)"]],
+      body: getComponentsData()
     })
 
     this.doc.autoTable({
@@ -124,7 +139,7 @@ export class SummaryComponent implements OnInit, OnDestroy {
     }
     })
 
-    this.doc.text("Signature", 40, this.doc.lastAutoTable.finalY + 150);
+    this.doc.text("Signature", 40, this.doc.lastAutoTable.finalY + 100);
     this.document = this.doc.output('arraybuffer');
 
     let quoteFile = new FormData();

@@ -8,11 +8,14 @@
         <div class="bs-component">
          <form #f="ngForm">
             <div class="form-group">
-                <label for="titre">titre</label>
+                <label for="titre">Titre</label>
                 <input type="text" class="form-control" [(ngModel)]="projet.title"  #titre="ngModel"   required id="titre"  name="titre"  aria-describedby="emailHelp"  placeholder="Enter titre">   
+                <div *ngIf="titre.invalid && titre.touched">
+                  <small class="alert alert-danger" *ngIf="titre.errors.required">titre est obligatoire</small>
+                </div>
             </div>
             <div class="form-group" >
-                <label for="client">client</label> 
+                <label for="client">Client</label> 
                 <div class="input-group">    
                 <select class="custom-select" class="form-control custom-select" [(ngModel)]="idClient"   #client="ngModel" required id="client"  name="client"  placeholder="select client">
                   <option [ngValue]="contact.id" *ngFor="let contact of contacts">{{contact.first_name}} {{contact.last_name}}</option>
@@ -21,26 +24,37 @@
                   <button class="btn btn-outline-secondary btn-sm ml-1 p-2 rounded" (click)="create()" type="button">ajouter</button>
                 </div>
               </div>
+              <div *ngIf="client.invalid && client.touched">
+                <small class="alert alert-danger" *ngIf="client.errors.required">client est obligatoire</small>
+              </div>
             </div>
             <div class="form-group">
-                <label for="adresse">adresse</label>
-                <input type="text" class="form-control" required [(ngModel)]="projet.adress"  #adresse="ngModel" id="adresse"  name="adresse"  aria-describedby="emailHelp" placeholder="Enter titre">
-                
+                <label for="adresse">Adresse</label>
+                <input type="text" class="form-control" required [(ngModel)]="projet.adress"  #adresse="ngModel" id="adresse"  name="adresse"  aria-describedby="emailHelp" placeholder="Enter adresse">
+                <div *ngIf="adresse.invalid && adresse.touched">
+                  <small class="alert alert-danger" *ngIf="adresse.errors.required">adresse est obligatoire</small>
+                </div>
             </div>
             <div class="form-group">
-                <label for="ville">ville</label>
+                <label for="ville">Ville</label>
                 <input type="text" class="form-control" required [(ngModel)]="projet.city"  #ville="ngModel" id="ville"  name="ville"  aria-describedby="emailHelp" placeholder="Enter ville">
-                
+                <div *ngIf="ville.invalid && ville.touched">
+                  <small class="alert alert-danger" *ngIf="ville.errors.required">ville est obligatoire</small>
+                </div>
             </div>
             <div class="form-group">
-                <label for="codepostal">codepostal</label>
-                <input type="number" class="form-control" required [(ngModel)]="projet.postalcode"  #codepostal="ngModel" id="codepostal"  name="codepostal"  aria-describedby="emailHelp" placeholder="Enter codepostal">
-                
+                <label for="codepostal">Code Postal</label>
+                <input type="number" class="form-control" required [(ngModel)]="projet.postalcode"  #codepostal="ngModel" id="codepostal"  name="codepostal"  aria-describedby="emailHelp" placeholder="Enter code postal">
+                <div *ngIf="codepostal.invalid && codepostal.touched">
+                  <small class="alert alert-danger" *ngIf="codepostal.errors.required">code postal est obligatoire</small>
+                </div>
             </div>
             <div class="form-group">
           <div class="d-flex h-100"> 
           <div class="align-self-end ml-auto">
+            
             <button type="submit" class="btn btn-info rounded float-right" (click)="save(f)">Enregistrer et continuer  <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+            <button type="submit" class="btn btn-danger rounded float-right mr-2" *ngIf="isEditing" (click)="update()">Modifier et quitter  <i class="fa fa-sign-out" aria-hidden="true"></i></button>
           </div>
         </div>
       </div> 

@@ -23,19 +23,20 @@ export class CustomAdapter extends NgbDateAdapter<string> {
   readonly DELIMITER = '-';
 
   fromModel(value: string | null): NgbDateStruct | null {
-    if (value) {new Date(2020, 7, 15);
+    if (value) {
+      new Date(15, 7, 2020);
       let date = value.split(this.DELIMITER);
       return {
-        year : parseInt(date[0], 10),
+        day : parseInt(date[0], 10),
         month : parseInt(date[1], 10),
-        day : parseInt(date[2], 10)
+        year : parseInt(date[2], 10)
       };
     }
     return null;
   }
 
   toModel(date: NgbDateStruct | null): string | null {
-    return date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : null;
+    return date ? date.day + this.DELIMITER + date.month + this.DELIMITER + date.year : null;
   }
 }
 
@@ -48,16 +49,16 @@ export class CustomDateParserFormatter extends NgbDateParserFormatter {
     if (value) {
       let date = value.split(this.DELIMITER);
       return {
-        year : parseInt(date[0], 10),
+        day : parseInt(date[0], 10),
         month : parseInt(date[1], 10),
-        day : parseInt(date[2], 10)
+        year : parseInt(date[2], 10)
       };
     }
     return null;
   }
 
   format(date: NgbDateStruct | null): string {
-    return date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : null;
+    return date ? date.day + this.DELIMITER + date.month + this.DELIMITER + date.year : null;
 
   }
 }
@@ -75,26 +76,21 @@ export class CustomDateParserFormatter extends NgbDateParserFormatter {
 export class ProjectsFilterComponent implements OnInit , AfterViewInit  {
 
 
-  fileName= 'projetsMonDevis.xlsx';
+ 
   projectTable: DataTables.Settings = {};
   projects: Project[];
   project: Project = {
     title:'',
     adress:'',
     price:0,
-    status: '',
+    status: 'Nouveau',
     idClient: 0,
-    created_at:new Date(2020, 7, 15)
+    created_at:new Date(15, 7, 2020)
     
   };
   projectsClient: Contact[];
   clientId: number;
-  numberDevis : number;
-  devises: SalesQot[];
-  devis: SalesQot = {
-    price:0,
-    status:'',
-  };
+  
   errorMessage:string;
   projectSearch:ProjectSearch = {};
   public isAdmin: boolean;
@@ -174,6 +170,7 @@ export class ProjectsFilterComponent implements OnInit , AfterViewInit  {
         'title': '',
         'adress': '',
         'price': '',
+        'status':'',
         'createdAt': '',
         'client': '',
        });

@@ -198,6 +198,7 @@
             <div class="m-3">
                 <button class="btn btn-info rounded float-left" (click)="goBack()"><i class="fa fa-arrow-left" aria-hidden="true"></i> Précedent</button>
                 <button class="btn btn-info rounded float-right" (click)="save()">Enregistrer et continuer <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                <button class="btn btn-danger rounded float-right mr-2" *ngIf="isProjectEditing" (click)="update()">Modifier et quitter  <i class="fa fa-sign-out" aria-hidden="true"></i></button>
             </div>
         </form>
     </div>
