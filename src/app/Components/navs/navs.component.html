@@ -23,7 +23,7 @@
         <p *ngIf=!ai>2</p>
         <i *ngIf=ai class="fa fa-check" aria-hidden="true"></i>   
       </strong>
-  </span>Area</a>
+  </span>Surface</a>
     <ul class="nav flex-column" *ngIf="area">
       <li class="nav-item">
         <a class="nav-link disabled" href="#" *ngIf="area">{{area[0].title}}</a>
@@ -66,7 +66,7 @@
         <p *ngIf=!ci>4</p>
         <i *ngIf=ci class="fa fa-check" aria-hidden="true"></i>  
       </strong>
-  </span>configurateur</a>
+  </span>Configurateur</a>
     <ul class="nav flex-column" *ngIf=ci>
       <li class="nav-item">
           <a class="nav-link disabled" href="#">{{configurateur[1].kit.selected.name}}</a>
@@ -92,7 +92,7 @@
         <p *ngIf=Ai>5</p>
         <i *ngIf=!Ai class="fa fa-check" aria-hidden="true"></i>    
       </strong>
-  </span>composant</a>
+  </span>Composant</a>
   </li>
   <li class="nav-item">
     <a  [ngClass]="{'bleu': ri == true}" class="fa-stack-1x"   class="nav-link active" ><span class="fa-stack">

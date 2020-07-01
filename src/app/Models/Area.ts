@@ -8,4 +8,3 @@ export interface Area {
     price?:number,
     date?:Date,
  }
- 

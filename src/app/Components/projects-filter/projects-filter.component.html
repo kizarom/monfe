@@ -10,7 +10,7 @@
         <div class="form-row">
           <div class="col-md-3 mb-3">
             <label for="projet">Projet</label>
-            <input type="text" class="form-control" id="projet" placeholder=" Nom Projet" [(ngModel)]="project.title"  name="project" #title="ngModel" required>
+            <input type="text" class="form-control" id="projet" placeholder=" Nom Projet" [(ngModel)]="project.title"  name="project" #title="ngModel" >
             <div *ngIf="title.invalid && title.touched">
               <small class="alert alert-danger">Ce champs est vide</small>
             </div>
@@ -18,13 +18,13 @@
 
           <div class="col-md-3 mb-3" *ngIf="isAdmin">
             <label for="client">Client</label>
-            <select class="form-control custom-select" [(ngModel)]="project.idClient" #client="ngModel" required id="client" name="client">
+            <select class="form-control custom-select" [(ngModel)]="project.idClient" #client="ngModel"  id="client" name="client">
               <option value="{{client.id}}"  *ngFor="let client of projectsClient">{{client.first_name}} {{client.last_name}}</option>
             </select>
           </div>
           <div class="col-md-3 mb-3">
             <label for="adress">Adresse</label>
-            <input type="text" class="form-control" id="adress" placeholder="Adresse" [(ngModel)]="project.adress"  name="adress" #adress="ngModel" required>
+            <input type="text" class="form-control" id="adress" placeholder="Adresse" [(ngModel)]="project.adress"  name="adress" #adress="ngModel" >
             <div *ngIf="adress.invalid && adress.touched">
               <small class="alert alert-danger">Ce champs est vide</small>
             </div>
@@ -35,7 +35,7 @@
         <div class="form-row">
           <div class="col-md-4 mb-3">
             <label for="price">Prix</label>
-            <input type="text" class="form-control" id="price" placeholder="prix €"   [(ngModel)]="project.price"  name="price" #price="ngModel"  required>
+            <input type="text" class="form-control" id="price" placeholder="prix DH"   [(ngModel)]="project.price"  name="price" #price="ngModel"  >
             <div *ngIf="price.invalid && price.touched">
               <small class="alert alert-danger">Ce champs est vide</small>
             </div>
@@ -44,9 +44,10 @@
 
           <div class="col-md-4 mb-3">
               <label for="status">Status</label><br/>
-                    <select name="status" [(ngModel)]="project.status" #status="ngModel" class="custom-select">
-                      <option>En traitement</option>
-                      <option>Traité</option>
+                    <select name="status" class="form-control custom-select"  [(ngModel)]="project.status" #status="ngModel" id="status" name="status">
+                      <option value="Nouveau">Nouveau </option>
+                      <option value="En traitement">En traitement</option>
+                      <option value="Traité">Traité</option>
                     </select>
           </div>
         </div>
@@ -55,7 +56,7 @@
               <div class="col-md-4 mb-3">
                 <label for="createdAt">Date de création de projet</label>
                 <div class="input-group">
-                      <input class="form-control" placeholder="yyyy-mm-dd"  id="createdAt" name="createdAt" [(ngModel)]="project.created_at" #createdAt="ngModel" ngbDatepicker #d="ngbDatepicker"   required>
+                      <input class="form-control" placeholder="dd-mm-yyyy"  id="createdAt" name="createdAt" [(ngModel)]="project.created_at" #createdAt="ngModel" ngbDatepicker #d="ngbDatepicker"   >
                         <div *ngIf="createdAt.invalid && createdAt.touched">
                           <small class="alert alert-danger">Ce champs est vide</small>
                       </div> 
@@ -65,9 +66,9 @@
               </div>
             </div> 
             </div>
-            <span class="text-danger" *ngIf="errorMessage">{{errorMessage}}</span>
             <button type="button" class="btn btn-primary"  (click)="clearForm(f)" >Vider le Filtre</button>
-              <button  type="submit"  class="btn btn-success float-right" (click)="save(f)">Filtrer</button>
+            <span class="text-danger" *ngIf="errorMessage">{{errorMessage}}</span>
+            <button  type="submit"  class="btn btn-success float-right" (click)="save(f)">Filtrer</button>
       </form>
     </div>
   </div>

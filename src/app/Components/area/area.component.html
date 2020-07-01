@@ -214,6 +214,7 @@
             <div class="m-3">
                 <button class="btn btn-info rounded float-left" (click)="goBack()"><i class="fa fa-arrow-left" aria-hidden="true"></i> Précedent</button>
                 <button class="btn btn-info rounded float-right" (click)="save()">Enregistrer et continuer <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                <button type="submit" class="btn btn-danger rounded float-right mr-2" *ngIf="isProjectEditing" (click)="update()">Modifier et quitter  <i class="fa fa-sign-out" aria-hidden="true"></i></button>
             </div>
             <div class="alert alert-dismissible alert-danger w-25 position-fixed" style="top: 10px;right: 10px" *ngIf="errorForm">
                 {{errorForm}}

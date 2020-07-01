@@ -5,7 +5,7 @@
 </div>
 
 <div class="row">
-  <div class="col-lg-6 mx-auto mt-3">
+  <div class="col-lg-10 mx-auto mt-3">
       <div class="bs-component">
 
       <form [formGroup]="form" > 
@@ -105,6 +105,8 @@
             </div>
          <div class="align-self-end ml-auto">
           <button class="btn btn-info rounded float-right" (click)="save()">Enregistrer et continuer <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+          <button class="btn btn-danger rounded float-right mr-2" *ngIf="isProjectEditing" (click)="update()">Modifier et quitter  <i class="fa fa-sign-out" aria-hidden="true"></i></button>
+
         </div>
       </div>
     </div>       

@@ -1,16 +1,14 @@
+import { DatableConfAlternativeService } from 'src/app/Services/datable-conf-alternative.service';
+import { DatatableConfigurationService } from 'src/app/Services/datatable-configuration.service';
 import { Component, OnInit, AfterContentChecked } from '@angular/core';
 import { Project } from 'src/app/Models/project';
 import { AuthApiService } from 'src/app/Services/auth-api.service';
 import { ProjectApiService } from 'src/app/Services/project-api.service';
-import { DatatableConfigurationService } from 'src/app/Services/datatable-configuration.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
-import { AddProjectComponent } from '../add-project/add-project.component';
-import { EditProjectComponent } from '../edit-project/edit-project.component';
 import { ShowProjectComponent } from '../show-project/show-project.component';
 import { Router } from '@angular/router';
-import { ProjectFilterService } from 'src/app/Services/project-filter.service';
 import { ProjectsFilterComponent } from '../../projects-filter/projects-filter.component';
 import * as XLSX from 'xlsx';
 import { DataTransferServiceService } from 'src/app/Services/data-transfer-service.service';
@@ -23,6 +21,8 @@ declare var $: JQueryStatic;
 })
 export class ListProjectComponent implements OnInit, AfterContentChecked {
 
+
+  // click : boolean = false;
   projects: Project[];
   public isAdmin: boolean;
   projectTable: DataTables.Settings = {};
@@ -30,7 +30,7 @@ export class ListProjectComponent implements OnInit, AfterContentChecked {
   constructor(
     private authApiService: AuthApiService,
     private projectApiService: ProjectApiService,
-    private dataTableConfig: DatatableConfigurationService,
+    private dataTableConfig: DatableConfAlternativeService,
     private spinner: NgxSpinnerService,
     private modalService: NgbModal,
     private router: Router,
@@ -48,10 +48,11 @@ export class ListProjectComponent implements OnInit, AfterContentChecked {
     this.isAdmin = this.authApiService.getConnectedAdmin() || this.authApiService.isSuperAdmin();
   }
 
-  updateStatus(status, id){    
-    this.projectApiService.updateStatus(status.value, id).subscribe(resp=>{
+  updateStatus(status, id){
+    this.projectApiService.updateStatus(status.value, id).subscribe(()=>{
       this.getProjects();
     })
+     
   }
 
   getDate(_date){
@@ -84,8 +85,8 @@ export class ListProjectComponent implements OnInit, AfterContentChecked {
 
 
   filter(){
-    
-    
+
+
     const modalRef = this.modalService.open(ProjectsFilterComponent, {
       centered: true,
       backdrop: 'static',
@@ -93,7 +94,7 @@ export class ListProjectComponent implements OnInit, AfterContentChecked {
     });
     // modalRef.componentInstance.project = project;
     modalRef.result.then(
-      (yes) => {
+      () => {
         this.dataTransfer.project.subscribe(res=> this.projects = res);
         modalRef.close();
         // this.getProjects();
@@ -103,13 +104,13 @@ export class ListProjectComponent implements OnInit, AfterContentChecked {
       }
     );
   }
-  
+
   exporter(){
-    let element = document.getElementById('projet_mondevis'); 
+    let element = document.getElementById('projet_mondevis');
     const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-    XLSX.writeFile(wb, "projetsMonDevis.xlsx");   
+    XLSX.writeFile(wb, "projetsMonDevis.xlsx");
   }
 
   delete(id: any) {
@@ -170,7 +171,7 @@ export class ListProjectComponent implements OnInit, AfterContentChecked {
     });
     modalRef.componentInstance.id = id;
     modalRef.result.then(
-      (yes) => {
+      () => {
         modalRef.close();
         this.spinner.show();
         this.projects = null;
