@@ -45,6 +45,7 @@
           <div class="col-md-4 mb-3">
               <label for="status">Status</label><br/>
                     <select name="status" class="form-control custom-select"  [(ngModel)]="project.status" #status="ngModel" id="status" name="status">
+                      <option value="">Tous</option>
                       <option value="Nouveau">Nouveau </option>
                       <option value="En traitement">En traitement</option>
                       <option value="Traité">Traité</option>

@@ -32,7 +32,7 @@
         <div class="file-area border border-secondary" *ngIf="component" >
           <label>Les produits associés</label>
             <h6 *ngIf="component.products.length == 0" class="text-center w-100">Ce composant n'a aucun produit associé.</h6>
-            <div *ngFor="let product of component.products" class="file-name text-primary border-bottom border-Secondary">
+            <div *ngFor="let product of component.products" class="file-name border-bottom border-Secondary">
                 {{product.name}}
             </div>
         </div>
@@ -40,7 +40,7 @@
         <div class="file-area border border-secondary" *ngIf="component" >
           <label>Les fichiers associés</label>
             <h6 *ngIf="component.files.length == 0" class="text-center w-100">Ce composant n'a aucun fichier associé.</h6>
-            <div *ngFor="let pdfExist of component.files text-primary" class="file-name border-bottom border-Secondary">
+            <div *ngFor="let pdfExist of component.files" class="file-name border-bottom border-Secondary">
                 {{pdfExist.title}}
                <span><a href="{{pdfExist.path}}"><i class="fa fa-download" aria-hidden="true"></i></a></span>
             </div>

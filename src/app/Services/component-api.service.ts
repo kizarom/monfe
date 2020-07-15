@@ -13,9 +13,14 @@ export class ComponentApiService {
     return this.httpClient.get('http://localhost:8000/api/components/');
   }
 
+  getComponentBytype(){
+    return this.httpClient.get('http://localhost:8000/api/components/byType');
+  }
+
   getOneComponent(id: number){
     return this.httpClient.get('http://localhost:8000/api/components/' + id);
   }
+
 
   addComponent(componentData: FormData){
     return this.httpClient.post('http://localhost:8000/api/components', componentData);

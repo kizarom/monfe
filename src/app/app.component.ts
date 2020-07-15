@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'mondevisfe';
+  title = 'MonDevis';
   constructor(private _router: Router){
   }
   hasRoute(route: string) {

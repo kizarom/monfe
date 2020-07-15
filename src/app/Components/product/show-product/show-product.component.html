@@ -21,7 +21,7 @@
           <div class="file-area border border-secondary" *ngIf="product" >
             <label>Les composants associés</label>
               <h6 *ngIf="product.components.length == 0" class="text-center w-100">Ce produit n'a aucun composant associé.</h6>
-              <div *ngFor="let component of product.components" class="file-name text-primary border-bottom border-Secondary">
+              <div *ngFor="let component of product.components" class="file-name border-bottom border-Secondary">
                  - <strong class="font-weight-bold">Réf fab  : {{component.man_ref}}</strong>  <br>  <strong  class="font-weight-bold"> - Intitulé  : </strong> {{component.title}} <br> - <strong  class="font-weight-bold">Type : </strong> :  {{component.type}}
               </div>
           </div>

@@ -37,6 +37,8 @@ export class ListContactsComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.spinner.show();     
     this.getListContacts();
+    console.log('contact');
+    console.log(this.contacts);
   }
   
  ngAfterViewInit(){

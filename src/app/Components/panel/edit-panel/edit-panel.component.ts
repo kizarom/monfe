@@ -14,7 +14,7 @@ export class EditPanelComponent implements OnInit {
   form: FormGroup;
   id: string;
   constructor(
-    private panelservice:PanelApiService,
+    private panelservice: PanelApiService,
     public activeModal: NgbActiveModal,
     private formBuilder: FormBuilder
   ) { }

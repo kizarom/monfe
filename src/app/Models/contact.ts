@@ -1,7 +1,7 @@
 import { Project } from './project';
 
 export interface Contact {
-  id?: number;
+  id?: any;
   email: string;
   roles: string[];
   password: string;

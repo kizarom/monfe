@@ -12,25 +12,25 @@ import { Product } from 'src/app/Models/product';
   styleUrls: ['./add-compenent.component.scss']
 })
 export class AddCompenentComponent implements OnInit {
-  @ViewChild('labelcheckbox') labelcheckbox : ElementRef;
+  @ViewChild('labelcheckbox') labelcheckbox: ElementRef;
   component: ComponentInterface = {
-    man_ref:"",
-    rexel_ref:"",
-    title:"",
-    quantity:1,
-    description:"",
-    type:"",
-    price:0,
+    man_ref: '',
+    rexel_ref: '',
+    title: '',
+    quantity: 1,
+    description: '',
+    type: '',
+    price: 0,
     products: []
   };
   image: File;
-  pdfs:File[] = [];
+  pdfs: File[] = [];
   errMessage: String[] = [];
   imagePreview: any = 'assets/image-default.png';
-  products: Product; 
+  products: Product;
   linkedProducts: number[] = [];
 
-  constructor(    
+  constructor(
     public activeModal: NgbActiveModal,
     public componentApiService: ComponentApiService,
     public productApiService: ProductApiService
@@ -42,13 +42,12 @@ export class AddCompenentComponent implements OnInit {
     });
   }
 
-  addProduct(product, label){    
-    if(label.className.includes('active')) {
-      label.classList.remove('active');  
+  addProduct(product, label) {
+    if (label.className.includes('active')) {
+      label.classList.remove('active');
       this.component.products.splice(this.component.products.indexOf(product.id), 1);
-    }
-    else {
-      label.classList.add('active');  
+    } else {
+      label.classList.add('active');
       this.component.products.push(product.id);
     }
     console.log(this.component.products);
@@ -57,8 +56,8 @@ export class AddCompenentComponent implements OnInit {
   getImage(image) {
     if (!image) { return; }
     this.image = image;
-    let type = this.image.type;
-    let size: number = this.image.size;
+    const type = this.image.type;
+    const size: number = this.image.size;
     if (type.match(/image\/*/) == null) {
       this.errMessage.push('Seulement les images de type (.jpg, .jpeg, .png) sont supporter !');
       return;
@@ -67,7 +66,7 @@ export class AddCompenentComponent implements OnInit {
       this.errMessage.push('La taille de l\'image ne doit pas dépasser 2Mo !');
       return;
     }
-    let reader = new FileReader();
+    const reader = new FileReader();
     reader.readAsDataURL(image);
     reader.onload = (_event) => {
       this.imagePreview = reader.result;
@@ -76,20 +75,20 @@ export class AddCompenentComponent implements OnInit {
 
   getFiles(pdfs) {
     this.errMessage = [];
-    if (!pdfs) { return; }    
-    let error = false;    
-    for(let i = 0; i < pdfs.length; i++){
+    if (!pdfs) { return; }
+    let error = false;
+    for (let i = 0; i < pdfs.length; i++) {
        if (pdfs[i].type.match(/application\/pdf/) == null) {
-         this.errMessage.push("- le fichier "+pdfs[i].name+" n'est de type .pdf !");
+         this.errMessage.push('- le fichier ' + pdfs[i].name + ' n\'est de type .pdf !');
          error = true;
        }
        if (pdfs[i].size > 5000000) {
-         this.errMessage.push('- La taille du fichier "'+pdfs[i].name+'" est plus de 5Mo !');
+         this.errMessage.push('- La taille du fichier "' + pdfs[i].name + '" est plus de 5Mo !');
          error = true;
        }
 
     }
-    if(error){
+    if (error) {
       return;
     }
 
@@ -99,13 +98,13 @@ export class AddCompenentComponent implements OnInit {
   dismissAlert() {
     this.errMessage = [];
   }
-  
+
   setImageDefault() {
     this.imagePreview = 'assets/image-default.png';
     this.image = null;
   }
 
-  deleteFile(pdf){
+  deleteFile(pdf) {
     this.pdfs.splice(this.pdfs.indexOf(pdf), 1);
   }
 
@@ -117,12 +116,12 @@ export class AddCompenentComponent implements OnInit {
       componentData.append('component', JSON.stringify(this.component));
       // componentData.append('products', JSON.stringify(this.linkedProducts));
       for (let i = 0; i < this.pdfs.length; i++) {
-        componentData.append('pd_f'+i,  this.pdfs[i]); 
+        componentData.append('pd_f' + i,  this.pdfs[i]);
       }
 
       this.componentApiService.addComponent(componentData).subscribe((resp) => {
         console.log(resp);
-        
+
         this.activeModal.close();
       });
     }

@@ -1,0 +1,86 @@
+<br />
+<div class="row mt-2 mb-4">
+  <div class="col-md-12 mx-auto text-center">
+    <h1>Liste des commandes</h1>
+  </div>
+</div>
+<div class="row" style="margin-bottom:16px;">
+    <div class="col-lg-12 text-center">
+      <p  class="bs-component" >
+        <span style="float: left"
+          *ngIf="commandes"
+          (click)="getcommandes()"
+          class="font-weight-bold clickable" >
+          {{ commandes.length }} commandes
+        </span>
+        <button style="float:right" type="button" (click)="filter()" class="btn btn-sm btn-success">
+          <i class="fa fa-search" aria-hidden="true"></i> Filtrer
+        </button>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="bs-component table-container">
+        <table
+          *ngIf="commandes"
+          class="table table-hover table-striped"
+          datatable
+          [dtOptions]="commandeTable"
+        >
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">N°</th>
+              <th scope="col">Date</th>
+              <th scope="col">type de commande</th>
+              <th scope="col">Detail</th>
+              <th scope="col">Prix totale</th>
+              <th scope="col">Qantité totale</th>
+              <th scope="col">Statut</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let commande of commandes">
+              <td class="align-middle text-center p-2">{{ commande.id }}</td>
+              <td class="align-middle text-center p-2">
+                {{  getDate(commande.create_at) }}
+              </td>
+              <td class="align-middle text-center">
+                {{ commande.type }}
+              </td>
+              <td *ngIf="commande.type=='Projet devisé'" class="align-middle text-center p-2">
+                <p> {{ commande.salse_quot.projet.title | uppercase }}</p>
+                <p *ngIf="isAdmin"> {{ commande.salse_quot.projet.client.email | titlecase }}</p>
+                <p *ngIf="!isAdmin"> {{ commande.salse_quot.projet.user.email | titlecase }}</p>
+              </td>
+              <td  *ngIf="commande.type=='En Catalogue'" class="align-middle text-center p-2">
+                {{ commande.ligncommands[0].component.title  }}
+                <p> {{ componentsType[commande.ligncommands[0].component.type] }}</p>
+                <p> {{ commande.client.first_name }} {{ commande.client.last_name }}</p>
+              </td>
+              <td *ngIf="commande.type=='Projet devisé'" class="align-middle text-center p-2">{{ commande.salse_quot.price }} DH</td>
+              <td *ngIf="commande.type=='En Catalogue'" class="align-middle text-center p-2">{{ getTotalPrice(commande.ligncommands) }} DH</td>
+              <td *ngIf="commande.type=='En Catalogue'" class="align-middle text-center p-2">{{ getTotalQuantity(commande.ligncommands)}}</td>
+              <td *ngIf="commande.type=='Projet devisé'" class="align-middle text-center p-2">1</td>
+              <td class="align-middle text-center p-2">
+                <span *ngIf="!isAdmin">
+                  <i *ngIf="commande.status=='Annuler'">Annulée</i>
+                  <i *ngIf="commande.status== 'EnvoyerADV'">Envoyée à l'ADV</i>
+                  <i *ngIf="commande.status=='Nouveau'">En traitement</i>
+                </span>
+                <div *ngIf="isAdmin">
+              <i *ngIf="commande.status=='Annuler'">Annulée</i>
+              <i *ngIf="commande.status== 'EnvoyerADV'">Envoyée à l'ADV</i>
+              <i *ngIf="commande.status=='Nouveau'"><input type="button" (click)="save(myBtn1,commande.id)"  class="align-middle text-center btn btn-primary rounded p-2 m-1" #myBtn1  value="Envoyer à l'ADV"></i>           
+              <i *ngIf="commande.status=='Nouveau'"><input type="button" (click)="save(myBtn2,commande.id)" class="align-middle text-center btn btn-primary rounded p-2 m-1" #myBtn2   value="Annuler"></i>
+            </div>
+            </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <ngx-spinner bdColor="rgba(110, 129, 136, 0.91)" color="rgb(28, 36, 79)" size="large" type="ball-clip-rotate-multiple">  
+    <p style="color: rgb(28, 36, 79)">Chargement de page ... </p>  
+  </ngx-spinner> 

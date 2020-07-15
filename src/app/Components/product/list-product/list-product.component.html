@@ -20,7 +20,8 @@
         <tr>
           <th scope="col" class="align-middle text-center">Product Image</th>
           <th scope="col" class="align-middle text-center">Name</th>
-          <th scope="col" class="align-middle text-center">Description</th>
+          <th scope="col" class="align-middle text-center">Description du kit</th>
+          <th scope="col" class="align-middle text-center">Puissance électrique</th>
           <th scope="col" class="align-middle text-center">Price</th>
           <th scope="col" class="align-middle text-center">Action</th>
         </tr>
@@ -34,7 +35,10 @@
             {{product.name}}
           </td>
           <td class="align-middle text-center">
-            {{product.description}}
+            {{product.kit_description}}
+          </td>
+          <td class="align-middle text-center">
+            {{product.electric_power}} WC
           </td>
           <td class="align-middle text-center">
             {{product.price | number: '0.2'}} DH

@@ -1,0 +1,93 @@
+<div class="row">
+    <div class="col-lg-4 side-block" style="min-height: 100vh !important">
+        <div class="mt-1">
+            <ng-select [items]="components" [(ngModel)]="component" bindLabel="title" name="composant"  bindLabel="title" name="composant" placeholder="Recherche"></ng-select> 
+        </div>
+        <br><br>
+        <div>
+            <div class="w-100 component-list-container" (click)="showComponentList($event)" *ngFor="let type of componentsBytype | keyvalue">
+                {{componentsType[type.key]}} ({{type.value.length}})
+                <span class="float-right"><i class="fa fa-chevron-down" aria-hidden="true"></i></span>
+                <hr class="style-one">
+                <ul class="p-1 m-1 list-component" [attr.data-hidden]="true">
+                    <li *ngFor="let component of type.value" (click)="showComponen(component)" class="component-item p-1 m-1">
+                        <span class=""><img src="{{component.image}}" class="m-1" width="30px" alt="{{component.man_ref}}"> <span class="font-weight-bold">{{component.man_ref}}</span> {{component.title}}
+                    </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8" style="min-height: 100% !important">
+        <h4 class="mt-3 ml-3 d-inline-block">Détails</h4>
+        <span *ngIf="!isAdmin" class="mt-3 float-right"><a routerLink="/panier"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Mon panier ({{cart.length}})</a></span>
+        <hr class="style-seven">
+        <div class="row" *ngIf="component">
+            <div class="col-lg-4 text-center">
+                <img src="{{component.image}}" width="200" class="mx-auto" alt="{{component.title}}">
+            </div>
+            <div class="col-lg-8">
+                <h2>{{component.title}}</h2>
+                <h5>Réf Fab : {{component.man_ref}}</h5>
+                <h6>Réf Rexel : {{component.rexel_ref}}</h6>
+                <br>
+                <div class="m-2">
+                    <table class="w-100">
+                        <tr>
+                            <td style="width: 150px;">Type</td>
+                            <td>{{componentsType[component.type]}}</td>
+                        </tr>
+                        <tr>
+                            <td>Qantité en stock</td>
+                            <td>{{component.quantity}}</td>
+                        </tr>
+                        <tr>
+                            <td>Prix</td>
+                            <td>{{component.price}} DH</td>
+                        </tr>
+                    </table>
+                </div>
+                <br>
+                <p>{{component.description}}</p>
+                <div *ngIf="!isAdmin">
+                    <div class="form-group m-2 d-inline-block">
+                        <div class="input-group mb-3">
+                        <div class="input-group-prepend" (click)="subtractQuantity()">
+                            <span class="input-group-text p-2">-</span>
+                        </div>
+                        <input type="text" class="form-control p-1 text-center" [(ngModel)]="componentInCartQuantity" readonly style="width: 50px;" >
+                        <div class="input-group-append" (click)="addQuantity()">
+                            <span class="input-group-text p-2">+</span>
+                        </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary rounded float-right" style="font-size: 12px;" (click)="addToCart()"><i class="fa fa-cart-plus" aria-hidden="true"></i> Ajouter au panier</button>
+                </div>
+            </div>
+            <div class="col-lg-12 mt-5 mb-5">
+                <div class="files-container p-2">
+                    <div class="pt-1 pl-3 pr-3 pb-1 m-1 d-inline-block" *ngFor="let file of component.files">
+                       <a class="font-weight-bold" href="{{file.path}}"> {{file.title}}
+                        <i class="fa fa-download" aria-hidden="true"></i> </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 mt-3 mb-4">
+                <h5 class="text-center">Composant associés</h5>
+                <hr>
+                <div class="row border rounded">
+                    <div class="d-flex align-items-center justify-content-center col-lg-1 scroll-button" (click)="scrollRight($event)"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></div>
+                    <div id="assoc_component_container" class="associated-component-container col-lg-10">
+                        <div class="w-25 d-inline-block m-3 p-2 text-center border rounded acoss-component" (click)="getAssociatedComponent(componentAssoc)"  *ngFor="let componentAssoc of componentsBytype[component.type]">
+                            <div class="mb-1 associated-component">
+                                <img src="{{componentAssoc.image}}" class="d-block mx-auto" width="150px" alt="{{componentAssoc.man_ref}}">
+                            </div>
+                            <span class="font-weight-bold">{{componentAssoc.title}}</span>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-center col-lg-1 scroll-button" (click)="scrollLeft($event)"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

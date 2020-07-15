@@ -71,7 +71,7 @@
           <label>Produits associés</label>
         </div>
         <div class="form-group btn-group btn-group-toggle">
-          <label #labelcheckbox class="btn btn-outline-primary mr-1" *ngFor="let product of products" [class.active]="checkProduct(product)">
+          <label #labelcheckbox class="btn btn-outline-primary grid-choice mr-1" *ngFor="let product of products" [class.active]="checkProduct(product)">
             <input type="checkbox" #checkbox checked="" name="linkedProducts[]" (click)="addProduct(product, labelcheckbox)" value="{{product.name}}" autocomplete="off"> {{product.name}}
           </label>
         </div>

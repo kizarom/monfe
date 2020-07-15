@@ -17,7 +17,7 @@ import { ProjectApiService } from 'src/app/Services/project-api.service';
 export class ProjetComponent implements OnInit, AfterViewInit {
   st:boolean;
   projet:Projet={
-    title:"",
+    title: '',
     client:{},
     adress:"",
     city:"",
@@ -33,9 +33,8 @@ export class ProjetComponent implements OnInit, AfterViewInit {
     private spinner: NgxSpinnerService,
     private projectApiService: ProjectApiService
     ) { }
-    
-  ngOnInit(): void {
 
+  ngOnInit(): void {
   }
 
   ngAfterViewInit(): void {
@@ -48,7 +47,7 @@ export class ProjetComponent implements OnInit, AfterViewInit {
     if(sessionStorage.getItem('isUpdate') && sessionStorage.getItem('isUpdate') === "true") this.isEditing = true;
   }
   getListContacts(){
-    this.contactservice.getAllContact().subscribe((contactList: Contact[])=>{ 
+    this.contactservice.getAllContact().subscribe((contactList: Contact[])=>{
       this.contacts = contactList['hydra:member'].filter(contact => contact['roles'].includes('ROLE_USER'));
     })
   }
@@ -56,7 +55,7 @@ export class ProjetComponent implements OnInit, AfterViewInit {
     if (form.valid) {
       this.projet.client = this.contacts.find(contact=> contact.id == this.idClient);
       sessionStorage.setItem("projet",JSON.stringify(this.projet));
-      this.router.navigateByUrl("create/project/areas"); 
+      this.router.navigateByUrl("create/project/areas");
     }
   }
 
@@ -69,7 +68,7 @@ export class ProjetComponent implements OnInit, AfterViewInit {
     let areasDetails = JSON.parse(sessionStorage.getItem('areas'));
     let configuratorsData = JSON.parse(sessionStorage.getItem('configurators'));
     let componentsData = JSON.parse(sessionStorage.getItem('composants'));
-  
+
     let windows  = areasData.map(areadata=> {
       let wins = areadata.windowChimneys.filter(wc => wc.type == 'window');
       return {areaTitle: areadata.areaTitle , windows: wins};
@@ -100,7 +99,7 @@ export class ProjetComponent implements OnInit, AfterViewInit {
       });
       return {
         areaTitle: cmp.areaTitle,
-        components: prods 
+        components: prods
       }
     })
 
@@ -123,7 +122,7 @@ export class ProjetComponent implements OnInit, AfterViewInit {
         let config = configuratorsData.find(cg => cg.areaTitle === ar.title);
         project.price += config.kit.selected.price;
       })
-      
+
       componentsData.forEach(comps=>{
         comps.product.forEach(comp => {
           project.price += comp.price;
@@ -131,16 +130,16 @@ export class ProjetComponent implements OnInit, AfterViewInit {
       })
       sessionStorage.setItem('projet', JSON.stringify(project));
     }
-    
+
     var projectData = new FormData();
-    projectData.append('project', sessionStorage.getItem('projet')); 
-    projectData.append('areas', JSON.stringify(areas)); 
-    projectData.append('needs', sessionStorage.getItem('needs')); 
-    projectData.append('configurators', JSON.stringify(configurators)); 
-    projectData.append('_areas', sessionStorage.getItem('areas')); 
-    projectData.append('_areas_data', sessionStorage.getItem('areasData')); 
-    projectData.append('_components_data', sessionStorage.getItem('composants')); 
-    projectData.append('_configurators_data', sessionStorage.getItem('configurators')); 
+    projectData.append('project', sessionStorage.getItem('projet'));
+    projectData.append('areas', JSON.stringify(areas));
+    projectData.append('needs', sessionStorage.getItem('needs'));
+    projectData.append('configurators', JSON.stringify(configurators));
+    projectData.append('_areas', sessionStorage.getItem('areas'));
+    projectData.append('_areas_data', sessionStorage.getItem('areasData'));
+    projectData.append('_components_data', sessionStorage.getItem('composants'));
+    projectData.append('_configurators_data', sessionStorage.getItem('configurators'));
     this.projectApiService.editProject(projectData, JSON.parse(sessionStorage.getItem('idProject'))).subscribe(idQuot=>{
       this.router.navigateByUrl('create/project/summary');
     });

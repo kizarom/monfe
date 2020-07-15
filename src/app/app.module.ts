@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './Components/login/login.component';
 import { AuthApiService } from './Services/auth-api.service';
 import { AuthGuard } from './auth.guard';
-import { ProjetsComponent } from './Components/projets/projets.component';
 import { NavbarComponent } from './Components/navbar/navbar.component';
 import { ListContactsComponent } from './Components/contact/list-contacts/list-contacts.component';
 import { ShowContactComponent } from './Components/contact/show-contact/show-contact.component';
@@ -36,12 +35,10 @@ import { EditCompenentComponent } from './Components/component/edit-compenent/ed
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ListProjectComponent } from './Components/project/list-project/list-project.component';
-import { EditProjectComponent } from './Components/project/edit-project/edit-project.component';
 import { ShowProjectComponent } from './Components/project/show-project/show-project.component';
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
-import { AddProjectComponent } from './Components/project/add-project/add-project.component';
 import {DataTablesModule} from 'angular-datatables';
 import { AddNeedComponent } from './Components/project/need/add-need/add-need.component';
 import { ProjectsFilterComponent } from './Components/projects-filter/projects-filter.component';
@@ -53,8 +50,12 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { ProjetComponent } from './Components/devis/projet/projet.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ComposantComponent } from './Components/devis/composant/composant.component';
-
 import { NavsComponent } from './Components/navs/navs.component';
+import { CheckOrdersComponent } from './Components/orders/check-orders/check-orders.component';
+import { CatalogComponent } from './Components/catalog/catalog/catalog.component';
+import { OrderComponent } from './Components/catalog/order/order.component';
+import { CommandeComponent } from './Components/commande/commande.component';
+import { FilterCommandeComponent } from './Components/commande/filter-commande/filter-commande.component';
 
 
 
@@ -64,7 +65,6 @@ registerLocaleData(localeFr);
     AppComponent,
     NavbarComponent,
     LoginComponent,
-    ProjetsComponent,
     ListContactsComponent,
     ShowContactComponent,
     AddContactComponent,
@@ -86,9 +86,7 @@ registerLocaleData(localeFr);
     AddCompenentComponent,
     EditCompenentComponent,
     ListProjectComponent,
-    EditProjectComponent,
     ShowProjectComponent,
-    AddProjectComponent,
     AddNeedComponent,
     ProjectsFilterComponent,
     AreaComponent,
@@ -97,6 +95,11 @@ registerLocaleData(localeFr);
     NavsComponent,
     ComposantComponent,
     ProjetComponent,
+    CheckOrdersComponent,
+    CatalogComponent,
+    CommandeComponent,
+    OrderComponent,
+    FilterCommandeComponent,
   ],
   imports: [
     BrowserModule,

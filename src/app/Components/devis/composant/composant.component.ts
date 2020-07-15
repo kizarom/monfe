@@ -3,9 +3,7 @@ import { Product } from 'src/app/Models/product';
 import { ComponentInterface } from 'src/app/Models/ComponentInterface';
 import { Router } from '@angular/router';
 import { ComponentApiService } from 'src/app/Services/component-api.service';
-import { ProductApiService } from 'src/app/Services/product-api.service';
 import { ProjectApiService } from 'src/app/Services/project-api.service';
-import { ProjectsFilterComponent } from '../../projects-filter/projects-filter.component';
 
 @Component({
   selector: 'app-composant',
@@ -37,7 +35,7 @@ areasData:any[] = [];
 value1=[];
 value2=[];
 currentAreaIndex = 0;
-composants = [{ 
+composants = [{
     areaTitle: -1,
     test: [],
     product:[],
@@ -68,24 +66,24 @@ components: ComponentInterface[];
 isEditing = null;
 errorMessage:string;
 id:number;
-  ngOnInit() {  
+  ngOnInit() {
     this.getListComponent();
   }
-  getListComponent() {     
+  getListComponent() {
     this.componentService.getAllComponent().subscribe((componentsList: ComponentInterface[]) => {
       this.components = componentsList;
       console.log(componentsList);
-      
+
     });
   }
 
 ngAfterViewInit() {
-  
+
   this.getListComponent();
-  
+
   if(sessionStorage.getItem('areas')) {
     this.areas = JSON.parse(sessionStorage.getItem('areas'));
-  }else this.router.navigateByUrl("/create/project/areas"); 
+  }else this.router.navigateByUrl("/create/project/areas");
 
 
   if(sessionStorage.getItem('composants')){
@@ -111,6 +109,12 @@ ngAfterViewInit() {
   }
   if(sessionStorage.getItem('configurators')) {
     this.configurator = JSON.parse(sessionStorage.getItem('configurators'));
+    this.composants.forEach((comp, index) => {
+      var conf = this.configurator.find(cf=> cf.areaTitle == comp.areaTitle);
+      if(conf){
+        this.composants[index].product = conf.kit.selected.components;
+      }
+    });
     this.id=JSON.parse(sessionStorage.getItem('configurators'))[0].kit.id;
   }
   console.log(this.composants);
@@ -121,7 +125,7 @@ ngAfterViewInit() {
 
 add(){
     console.log(this.test);
-    
+
     this.value1 = this.array.concat(this.test);
     this.value2 = this.value2.concat(this.test);
     this.value2=this.value1.concat(this.value2.filter(x =>this.value1.every(y => y !== x)));
@@ -142,14 +146,14 @@ add(){
       type:"",
       price:0,
     }
-    
+
   }
 
 delete(composant){
   this.product.components.splice(this.product.components.indexOf(composant), 1);
   this.value2.splice(this.value2.indexOf(composant), 1);
   this.countComponentByType[composant.type]--;
-  
+
 }
 
 initializeArea(){
@@ -190,15 +194,15 @@ showArea(area){
   area.style['box-shadow'] = "none";
   area.style['color'] = "white";
   area.classList.add('bg-primary')
-  this.currentAreaIndex = this.composants.indexOf(this.composants.find(cf => cf.areaTitle == area.getAttribute('data-title')));  
-  this.currentconfiguratorIndex = this.configurator.indexOf(this.configurator.find(cf => cf.areaTitle == area.getAttribute('data-title')));  
-  
+  this.currentAreaIndex = this.composants.indexOf(this.composants.find(cf => cf.areaTitle == area.getAttribute('data-title')));
+  this.currentconfiguratorIndex = this.configurator.indexOf(this.configurator.find(cf => cf.areaTitle == area.getAttribute('data-title')));
+
   this.id=this.configurator[this.currentconfiguratorIndex].kit.id;
   this.value2=this.composants[this.currentAreaIndex].test;
   this.countComponentByType.reset();
-  this.product = this.configurator[this.currentconfiguratorIndex].kit.selected;   
-     
-  if(this.value2.length==0){    
+  this.product = this.configurator[this.currentconfiguratorIndex].kit.selected;
+
+  if(this.value2.length==0){
     this.test ={
       man_ref:"",
       rexel_ref:"",
@@ -213,11 +217,11 @@ showArea(area){
   }else{
     this.product.components = this.composants[this.currentAreaIndex].product;
   }
-  
+
   this.product.components.forEach((component)=> {
     this.countComponentByType[component['type']]++;
   })
-     
+
     this.test ={
       man_ref:"",
       rexel_ref:"",
@@ -227,10 +231,10 @@ showArea(area){
       type:"",
       price:0,
     }
-    
+
 
 }
-  
+
 
 save() {
 
@@ -239,7 +243,7 @@ save() {
   let areasData = JSON.parse(sessionStorage.getItem('areasData'));
   let configuratorsData = JSON.parse(sessionStorage.getItem('configurators'));
   let componentsData = JSON.parse(sessionStorage.getItem('composants'));
- 
+
   let windows  = areasData.map(areadata=> {
     let wins = areadata.windowChimneys.filter(wc => wc.type == 'window');
     return {areaTitle: areadata.areaTitle , windows: wins};
@@ -270,7 +274,7 @@ save() {
     });
     return {
       areaTitle: cmp.areaTitle,
-      components: prods 
+      components: prods
     }
   })
 
@@ -293,7 +297,7 @@ save() {
       let config = configuratorsData.find(cg => cg.areaTitle === ar.title);
       project.price += config.kit.selected.price;
     })
-    
+
     this.composants.forEach(comps=>{
       comps.product.forEach(comp => {
         project.price += comp.price;
@@ -301,16 +305,16 @@ save() {
     })
     sessionStorage.setItem('projet', JSON.stringify(project));
   }
-  
+
   var projectData = new FormData();
-  projectData.append('project', sessionStorage.getItem('projet')); 
-  projectData.append('areas', JSON.stringify(areas)); 
-  projectData.append('needs', sessionStorage.getItem('needs')); 
-  projectData.append('configurators', JSON.stringify(configurators)); 
-  projectData.append('_areas', sessionStorage.getItem('areas')); 
-  projectData.append('_areas_data', sessionStorage.getItem('areasData')); 
-  projectData.append('_components_data', sessionStorage.getItem('composants')); 
-  projectData.append('_configurators_data', sessionStorage.getItem('configurators')); 
+  projectData.append('project', sessionStorage.getItem('projet'));
+  projectData.append('areas', JSON.stringify(areas));
+  projectData.append('needs', sessionStorage.getItem('needs'));
+  projectData.append('configurators', JSON.stringify(configurators));
+  projectData.append('_areas', sessionStorage.getItem('areas'));
+  projectData.append('_areas_data', sessionStorage.getItem('areasData'));
+  projectData.append('_components_data', sessionStorage.getItem('composants'));
+  projectData.append('_configurators_data', sessionStorage.getItem('configurators'));
 
   if(sessionStorage.getItem('isUpdate') && sessionStorage.getItem('isUpdate') === "true"){
     this.projectApiService.editProject(projectData, JSON.parse(sessionStorage.getItem('idProject'))).subscribe(idQuot=>{
@@ -318,7 +322,7 @@ save() {
     },
     error => {
       console.log(error);
-      if(error.status == 409 && error.error == 'Ce project existe déjà') 
+      if(error.status == 409 && error.error == 'Ce project existe déjà')
         this.errorMessage = "Ce project existe déjà !"
     });
   }else {
@@ -328,8 +332,8 @@ save() {
   },
   error => {
     console.log(error);
-    
-    if(error.status == 409 && error.error == 'Ce project existe déjà') 
+
+    if(error.status == 409 && error.error == 'Ce project existe déjà')
       this.errorMessage = "Ce project existe déjà !"
   });
   }
@@ -348,5 +352,5 @@ goBack(){
 
 
 }
-  
+
 

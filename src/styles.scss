@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+
 @import "~@ng-select/ng-select/themes/material.theme.css";
+@import "custom-style.scss";
 
 html, body{
     height: 100%;
@@ -169,6 +171,10 @@ html, body{
     left: 0;
 }
 
+.grid-choice.active{
+  background-color: $primary !important;
+  color: white !important;
+}
 
  /* -- end for area component -- */
 
