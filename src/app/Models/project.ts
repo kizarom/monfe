@@ -4,7 +4,7 @@ import { Area } from './Area';
 import { Need } from './need';
 import { Configurator } from './configurator';
 export interface Project {
-  id?: number;
+  id?: string;
   title: string;
   adress: string;
   city?: string;

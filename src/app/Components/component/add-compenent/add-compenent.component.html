@@ -39,7 +39,7 @@
         </div>
         <div class="form-group">
             <label for="price">Prix</label>
-            <input type="text" class="form-control" pattern="^([0-9]{1,10})(.[0-9]{1,2})?$" required id="price" [(ngModel)]="component.price" name="price" #price="ngModel"  placeholder="Prix">
+            <input type="text" class="form-control" pattern="^\d+(.\d{1,2})?$" required id="price" [(ngModel)]="component.price" name="price" #price="ngModel"  placeholder="Prix">
             <div *ngIf="price.invalid && price.touched">
               <small class="alert alert-danger" *ngIf="price.errors.required">Ce champs est vide</small>
               <small class="alert alert-danger" *ngIf="price.errors.pattern">Le prix doit être numérique de format 10N.2N</small>
@@ -70,7 +70,7 @@
           <label>Produits associés</label>
         </div>
         <div class="form-group btn-group btn-group-toggle">
-          <label #labelcheckbox class="btn btn-outline-primary mr-1" *ngFor="let product of products">
+          <label #labelcheckbox class="btn btn-outline-primary grid-choice mr-1" *ngFor="let product of products">
             <input type="checkbox" #checkbox checked="" name="linkedProducts[]" (click)="addProduct(product, labelcheckbox)" value="{{product.name}}" autocomplete="off"> {{product.name}}
           </label>
         </div>

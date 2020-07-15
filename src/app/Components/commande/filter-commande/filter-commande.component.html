@@ -1,0 +1,71 @@
+<div class="modal-header">
+    <button type="button" class="close" aria-label="close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="card">
+        <form #f="ngForm">
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <label for="commandeType">Type de commande</label><br />
+                    <select name="commandeType" class="form-control custom-select" [(ngModel)]="order.type" id="status"
+                        name="status" #type="ngModel" (change)="onCommandeTypeChange($event)">
+                        <option value="quotedProject">Projet devisé</option>
+                        <option value="inCatalog">En catalogue</option>
+                    </select>
+                </div>
+                <div *ngIf="isAdmin">
+                    <label for="client">Client</label>
+                    <select class="form-control custom-select" [(ngModel)]="order.client" #client="ngModel"
+                        id="client" name="client">
+                        <option value="{{ client.id }}" *ngFor="let client of clients">{{ client.first_name }}
+                            {{ client.last_name }}</option>
+                    </select>
+                </div>
+                <div class="col-md-3 mb-3" *ngIf="commandeType === 'quotedProject'">
+                    <label for="projet">Projet</label>
+                    <input type="text" class="form-control" id="projet" placeholder="Intitulé projet" name="project"
+                        [(ngModel)]="order.project" #project="ngModel" />
+                </div>
+                <div class="col-md-3 mb-3" *ngIf="commandeType === 'inCatalog'">
+                    <label for="projet">Composant</label>
+                    <input type="text" class="form-control" id="projet" placeholder="Intitulté composant"
+                        name="component" [(ngModel)]="order.components" #component="ngModel" />
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <label for="status">Statut</label><br />
+                    <select name="status" class="form-control custom-select" id="status" name="status"
+                        [(ngModel)]="order.status" #status="ngModel">
+                        <option *ngIf="!isAdmin" value="Nouveau">En traitement</option>
+                        <option *ngIf="isAdmin" value="Nouveau">Nouveau</option>
+                        <option value="EnvoyerADV">Envoyée à l'ADV</option>
+                        <option value="Annuler">Annulée</option>
+                    </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="created_at">Date du commande</label>
+                    <div class="input-group">
+                        <input class="form-control" placeholder="dd-mm-yyyy" id="created_at" name="created_at"
+                            ngbDatepicker #d="ngbDatepicker" [(ngModel)]="order.created_at" #created_at="ngModel" />
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary" (click)="clearForm(f)">
+                Vider le Filtre
+            </button>
+            <span class="text-danger" *ngIf="errorMessage">{{ errorMessage }}</span>
+            <button type="submit" class="btn btn-success float-right" (click)="save()">
+                Filtrer
+            </button>
+        </form>
+    </div>
+</div>

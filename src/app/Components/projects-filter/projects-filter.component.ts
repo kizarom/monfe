@@ -82,7 +82,7 @@ export class ProjectsFilterComponent implements OnInit , AfterViewInit  {
   project: Project = {
     title:'',
     adress:'',
-    price:0,
+    price:null,
     status: 'Nouveau',
     idClient: 0,
     created_at:new Date(15, 7, 2020)
@@ -108,8 +108,6 @@ export class ProjectsFilterComponent implements OnInit , AfterViewInit  {
   ngOnInit(): void {
     this.getProjects();
     this.getProjectsClients()
-   
-    this.isAdmin = this.authApiService.getConnectedAdmin();
     this.isAdmin = this.authApiService.getConnectedAdmin() || this.authApiService.isSuperAdmin();
   }
 
@@ -136,7 +134,7 @@ export class ProjectsFilterComponent implements OnInit , AfterViewInit  {
 
   getProjectsClients(){
     this.contactService.getAllContact().subscribe((clientList: Contact[]) => {
-      this.projectsClient = clientList['hydra:member'].filter(contact => contact['roles'].includes('ROLE_USER')); ;
+      this.projectsClient = clientList['hydra:member'].filter(contact => contact['roles'].includes('ROLE_USER'));
     });
   }
 
@@ -147,6 +145,8 @@ export class ProjectsFilterComponent implements OnInit , AfterViewInit  {
       this.project.client = this.projectsClient.find(clt=> clt.id == this.clientId);
       
       this.projectService.projectFiltring(this.project).subscribe((projet: Project[]) => {
+        console.log(projet);
+        
         this.shareData(projet);
         this.activeModal.close();
       },

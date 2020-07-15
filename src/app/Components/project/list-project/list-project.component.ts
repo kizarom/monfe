@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { ProjectsFilterComponent } from '../../projects-filter/projects-filter.component';
 import * as XLSX from 'xlsx';
 import { DataTransferServiceService } from 'src/app/Services/data-transfer-service.service';
+import {CheckOrdersComponent} from "../../orders/check-orders/check-orders.component";
 declare var $: JQueryStatic;
 
 @Component({
@@ -48,18 +49,18 @@ export class ListProjectComponent implements OnInit, AfterContentChecked {
     this.isAdmin = this.authApiService.getConnectedAdmin() || this.authApiService.isSuperAdmin();
   }
 
-  updateStatus(status, id){
-    this.projectApiService.updateStatus(status.value, id).subscribe(()=>{
+  updateStatus(status, id) {
+    this.projectApiService.updateStatus(status.value, id).subscribe(() => {
       this.getProjects();
-    })
-     
+    });
+
   }
 
-  getDate(_date){
-    var date = new Date(_date);
-    var year = date.getFullYear();
-    var month:any = date.getMonth()+1;
-    var day:any = date.getDate()+1;
+  getDate(_date) {
+    const date = new Date(_date);
+    const year = date.getFullYear();
+    let month: any = date.getMonth() + 1;
+    let day: any = date.getDate() + 1;
 
     if (day < 10) {
       day = '0' + day;
@@ -68,7 +69,7 @@ export class ListProjectComponent implements OnInit, AfterContentChecked {
       month = '0' + month;
     }
 
-    return day + '-' + month + '-' + year
+    return day + '-' + month + '-' + year;
   }
 
   getProjects() {
@@ -84,7 +85,7 @@ export class ListProjectComponent implements OnInit, AfterContentChecked {
   }
 
 
-  filter(){
+  filter() {
 
 
     const modalRef = this.modalService.open(ProjectsFilterComponent, {
@@ -95,7 +96,7 @@ export class ListProjectComponent implements OnInit, AfterContentChecked {
     // modalRef.componentInstance.project = project;
     modalRef.result.then(
       () => {
-        this.dataTransfer.project.subscribe(res=> this.projects = res);
+        this.dataTransfer.project.subscribe(res => this.projects = res);
         modalRef.close();
         // this.getProjects();
       },
@@ -105,12 +106,12 @@ export class ListProjectComponent implements OnInit, AfterContentChecked {
     );
   }
 
-  exporter(){
-    let element = document.getElementById('projet_mondevis');
-    const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+  exporter() {
+    const element = document.getElementById('projet_mondevis');
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-    XLSX.writeFile(wb, "projetsMonDevis.xlsx");
+    XLSX.writeFile(wb, 'projetsMonDevis.xlsx');
   }
 
   delete(id: any) {
@@ -148,7 +149,7 @@ export class ListProjectComponent implements OnInit, AfterContentChecked {
     sessionStorage.removeItem('idQuote');
     sessionStorage.removeItem('idProject');
     sessionStorage.removeItem('isUpdate');
-   this.router.navigateByUrl('create/project/info');
+    this.router.navigateByUrl('create/project/info');
   }
 
   edit(project: Project) {
@@ -159,9 +160,9 @@ export class ListProjectComponent implements OnInit, AfterContentChecked {
     sessionStorage.setItem('configurators', JSON.stringify(project._configurtors_data));
     sessionStorage.setItem('composants', JSON.stringify(project._components_data));
     sessionStorage.setItem('idQuote', JSON.stringify(project.sales_qotes[0].id));
-    sessionStorage.setItem('isUpdate', "true");
+    sessionStorage.setItem('isUpdate', 'true');
     sessionStorage.setItem('idProject', JSON.stringify(project.id));
-    this.router.navigateByUrl('create/project/info')
+    this.router.navigateByUrl('create/project/info');
   }
 
   show(id: any) {
@@ -178,6 +179,24 @@ export class ListProjectComponent implements OnInit, AfterContentChecked {
         this.getProjects();
       },
       (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  checkOrder(id) {
+    const modalRef = this.modalService.open(CheckOrdersComponent, {
+      centered: true,
+      backdrop: 'static',
+    });
+    modalRef.componentInstance.id = id;
+    modalRef.result.then(
+      () => {
+        modalRef.close();
+        this.spinner.show();
+        this.projects = null;
+        this.getProjects();
+      }, (error) => {
         console.log(error);
       }
     );
